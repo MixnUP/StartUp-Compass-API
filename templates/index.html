@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Google Trends Flask API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .api-section {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .api-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .api-section code {
+            background-color: #f8f8f8;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .params, .response {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+            margin: 10px 0;
+        }
+
+        .params table, .response table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .params table th, .params table td, 
+        .response table th, .response table td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .example-response {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .example-response pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>StartUp-Compass Flask API Documentation</h1>
+</header>
+
+<div class="container">
+
+    <!-- Section for get_google_trends API -->
+    <div class="api-section">
+        <h2>GET /get_google_trends</h2>
+        <p>Fetch Google Trends data, interpret it, and return the requested section (e.g., trend summary, spike events, breakpoints, recommendations).</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends (e.g., <code>today 12-m</code> for 1 year).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+                <tr>
+                    <td><code>request_type</code></td>
+                    <td>String</td>
+                    <td>Type of data requested (e.g., <code>trend_summary</code>, <code>spike_events</code>, <code>breakpoints</code>, <code>recommendations</code>).</td>
+                    <td><code>trend_summary</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <pre>{
+    "Upward": 30,
+    "Downward": 12
+}</pre>
+        </div>
+    </div>
+
+    <!-- Section for get_current_month_interest API -->
+    <div class="api-section">
+        <h2>GET /get_current_month_interest</h2>
+        <p>Retrieve the interest score for the current month based on Google Trends data for a specific niche.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends (e.g., <code>today 12-m</code>).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <pre>{
+    "latest_interest_score": 82,
+    "average_interest_score": 75.3,
+    "month": 9,
+    "year": 2024
+}</pre>
+        </div>
+    </div>
+
+    <!-- Section for compile_all API -->
+    <div class="api-section">
+        <h2>GET /compile_all</h2>
+        <p>Compile all sections of the Google Trends report into a single JSON response.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends (e.g., <code>today 12-m</code>).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <pre>{
+    "trend_summary": { "Upward": 30, "Downward": 12 },
+    "spike_events": { "2024-09-01": { "Interest Score": 95 } },
+    "breakpoints": [{ "breakpoint_index": 100 }],
+    "recommendations": ["Consider expanding product offerings."]
+}</pre>
+        </div>
+    </div>
+
+    <!-- Section for calculate_roi API -->
+    <div class="api-section">
+        <h2>GET /calculate_roi</h2>
+        <p>Calculate the estimated Return on Investment (ROI) based on Google Trends forecast for a specific niche.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends (e.g., <code>today 12-m</code>).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <pre>{
+    "predicted_roi": 5.2,
+    "recommendation": "High investment potential."
+}</pre>
+        </div>
+    </div>
+
+    <!-- Section for get-bar-graph-data API -->
+<div class="api-section">
+    <h2>GET /get-bar-graph-data</h2>
+    <p>Retrieve data for creating a bar graph showing interest scores over time for a specific niche based on Google Trends data.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Default</th>
+            </tr>
+            <tr>
+                <td><code>niche</code></td>
+                <td>String</td>
+                <td>The search term for Google Trends.</td>
+                <td><code>iced coffee</code></td>
+            </tr>
+            <tr>
+                <td><code>location</code></td>
+                <td>String</td>
+                <td>The location for the trends data (e.g., US, PH).</td>
+                <td><code>US</code></td>
+            </tr>
+            <tr>
+                <td><code>timeframe</code></td>
+                <td>String</td>
+                <td>Time range for trends data (e.g., <code>today 12-m</code>).</td>
+                <td><code>today 12-m</code></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the data in JSON format, suitable for creating a bar graph. The labels represent the dates (X-axis), and the values represent the interest scores (Y-axis).</p>
+        <pre>{
+    "labels": [
+        "2023-09-01",
+        "2023-09-02",
+        "2023-09-03",
+        "... (more dates)"
+    ],
+    "values": [
+        67, 
+        73, 
+        82, 
+        "... (more scores)"
+    ]
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the API cannot find data for the given niche, it will return an error message:</p>
+        <pre>{
+    "error": "No data found for the given niche."
+}</pre>
+    </div>
+</div>
+
+
+</div>
+
+</body>
+</html>
