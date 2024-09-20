@@ -141,14 +141,29 @@ def calculate_roi_api():
 
 # NEW VIEWS:
 
-@views.route('/api/business-assessment', methods=['POST'])
+@views.route('/business-assessment', methods=['GET'])
 def business_assessment():
-    data = request.json
-    current_revenue = data.get('current_revenue')
-    previous_revenue = data.get('previous_revenue')
-    total_expenses = data.get('total_expenses')
-    customer_base = data.get('customer_base')
-    months = data.get('months', 12)  # Default to 12 months if not provided
+    """
+    Flask API endpoint to assess business metrics based on user input.
+
+    Query parameters:
+    - current_revenue (float): The total revenue for the current period.
+    - previous_revenue (float): The total revenue for the previous period.
+    - total_expenses (float): The total expenses incurred during the current period.
+    - customer_base (int): The total number of customers for the current period.
+    - months (int): The number of months over which to calculate average revenue (default is 12).
+
+    Returns:
+    - JSON: Insights, growth rate, profit margin, and average revenue per month.
+    """
+    current_revenue = request.args.get('current_revenue', type=float)
+    previous_revenue = request.args.get('previous_revenue', type=float)
+    total_expenses = request.args.get('total_expenses', type=float)
+    customer_base = request.args.get('customer_base', type=int)
+    months = request.args.get('months', default=12, type=int)
+
+    if None in [current_revenue, previous_revenue, total_expenses, customer_base]:
+        return jsonify({'error': 'Missing required parameters.'}), 400
 
     insights, growth_rate, profit_margin, average_revenue_per_month = generate_business_insights(
         current_revenue, previous_revenue, total_expenses, customer_base, months
