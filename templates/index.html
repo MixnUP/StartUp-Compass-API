@@ -277,66 +277,153 @@
     </div>
 
     <!-- Section for get-bar-graph-data API -->
-<div class="api-section">
-    <h2>GET /get-bar-graph-data</h2>
-    <p>Retrieve data for creating a bar graph showing interest scores over time for a specific niche based on Google Trends data.</p>
+    <div class="api-section">
+        <h2>GET /get-bar-graph-data</h2>
+        <p>Retrieve data for creating a bar graph showing interest scores over time for a specific niche based on Google Trends data.</p>
 
-    <div class="params">
-        <h3>Query Parameters:</h3>
-        <table>
-            <tr>
-                <th>Parameter</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Default</th>
-            </tr>
-            <tr>
-                <td><code>niche</code></td>
-                <td>String</td>
-                <td>The search term for Google Trends.</td>
-                <td><code>iced coffee</code></td>
-            </tr>
-            <tr>
-                <td><code>location</code></td>
-                <td>String</td>
-                <td>The location for the trends data (e.g., US, PH).</td>
-                <td><code>US</code></td>
-            </tr>
-            <tr>
-                <td><code>timeframe</code></td>
-                <td>String</td>
-                <td>Time range for trends data (e.g., <code>today 12-m</code>).</td>
-                <td><code>today 12-m</code></td>
-            </tr>
-        </table>
-    </div>
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location for the trends data (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends data (e.g., <code>today 12-m</code>).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+            </table>
+        </div>
 
-    <div class="example-response">
-        <h3>Example Response:</h3>
-        <p>The response will return the data in JSON format, suitable for creating a bar graph. The labels represent the dates (X-axis), and the values represent the interest scores (Y-axis).</p>
-        <pre>{
-    "labels": [
-        "2023-09-01",
-        "2023-09-02",
-        "2023-09-03",
-        "... (more dates)"
-    ],
-    "values": [
-        67, 
-        73, 
-        82, 
-        "... (more scores)"
-    ]
-}</pre>
-    </div>
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <p>The response will return the data in JSON format, suitable for creating a bar graph. The labels represent the dates (X-axis), and the values represent the interest scores (Y-axis).</p>
+            <pre>{
+        "labels": [
+            "2023-09-01",
+            "2023-09-02",
+            "2023-09-03",
+            "... (more dates)"
+        ],
+        "values": [
+            67, 
+            73, 
+            82, 
+            "... (more scores)"
+        ]
+    }</pre>
+        </div>
 
-    <div class="error-response">
-        <h3>Error Response:</h3>
-        <p>If the API cannot find data for the given niche, it will return an error message:</p>
-        <pre>{
-    "error": "No data found for the given niche."
-}</pre>
+        <div class="error-response">
+            <h3>Error Response:</h3>
+            <p>If the API cannot find data for the given niche, it will return an error message:</p>
+            <pre>{
+        "error": "No data found for the given niche."
+    }</pre>
+        </div>
+
+
+    <!-- Section for business-assessment -->
+    <div class="api-section">
+        <h2>POST /api/business-assessment</h2>
+        <p>Submit business metrics to receive tailored insights and recommendations based on your current financial performance.</p>
+    
+        <div class="params">
+            <h3>Request Body Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+                <tr>
+                    <td><code>current_revenue</code></td>
+                    <td>Number</td>
+                    <td>The total revenue for the current period (e.g., year, quarter).</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>previous_revenue</code></td>
+                    <td>Number</td>
+                    <td>The total revenue for the previous period used for growth rate calculation.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>total_expenses</code></td>
+                    <td>Number</td>
+                    <td>The total expenses incurred during the current period.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>customer_base</code></td>
+                    <td>Number</td>
+                    <td>The total number of customers for the current period.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>months</code></td>
+                    <td>Number</td>
+                    <td>The number of months over which to calculate average revenue (default is 12).</td>
+                    <td>No</td>
+                </tr>
+            </table>
+        </div>
+    
+        <div class="example-request">
+            <h3>Example Request:</h3>
+            <p>Below is an example of a JSON body you would send in your POST request:</p>
+            <pre>{
+        "current_revenue": 120000,
+        "previous_revenue": 100000,
+        "total_expenses": 80000,
+        "customer_base": 300,
+        "months": 12
+    }</pre>
+        </div>
+    
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <p>The response will return insights along with financial metrics in JSON format:</p>
+            <pre>{
+        "insights": [
+            "Your profit margin is below industry standards. Focus on optimizing your supply chain and reducing operational costs.",
+            "A low growth rate indicates potential stagnation. Explore new market segments or diversify your product offerings.",
+            "The average revenue per month is $10000.00."
+        ],
+        "growth_rate": 20.0,
+        "profit_margin": 33.33,
+        "average_revenue_per_month": 10000.00,
+        "message": "Business assessment completed successfully."
+    }</pre>
+        </div>
+    
+        <div class="error-response">
+            <h3>Error Response:</h3>
+            <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+            <pre>{
+        "error": "Missing required parameters."
+    }</pre>
+        </div>
     </div>
+    
+        
 </div>
 
 

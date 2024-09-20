@@ -138,3 +138,26 @@ def calculate_roi_api():
     return jsonify(roi_data)
 
 
+
+# NEW VIEWS:
+
+@views.route('/api/business-assessment', methods=['POST'])
+def business_assessment():
+    data = request.json
+    current_revenue = data.get('current_revenue')
+    previous_revenue = data.get('previous_revenue')
+    total_expenses = data.get('total_expenses')
+    customer_base = data.get('customer_base')
+    months = data.get('months', 12)  # Default to 12 months if not provided
+
+    insights, growth_rate, profit_margin, average_revenue_per_month = generate_business_insights(
+        current_revenue, previous_revenue, total_expenses, customer_base, months
+    )
+
+    return jsonify({
+        'insights': insights,
+        'growth_rate': growth_rate,
+        'profit_margin': profit_margin,
+        'average_revenue_per_month': average_revenue_per_month,
+        'message': 'Business assessment completed successfully.'
+    })

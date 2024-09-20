@@ -318,3 +318,68 @@ def calculate_roi(df, niche, investment_amount=1000, forecast_period=90):
         'recommendation': f"Based on the trend, the interest in '{niche}' is expected to {growth_trend}. "
                           f"Your estimated ROI for a ${investment_amount} investment over {forecast_period} days is {roi_percentage}%."
     }
+
+
+# NEW FUNCTIONS:
+def calculate_growth_rate(current_value, previous_value):
+    if previous_value == 0:
+        return 0  # To avoid division by zero
+    return ((current_value - previous_value) / previous_value) * 100
+
+def calculate_profit_margin(total_revenue, total_expenses):
+    if total_revenue == 0:
+        return 0  # To avoid division by zero
+    return ((total_revenue - total_expenses) / total_revenue) * 100
+
+def calculate_average_revenue(current_revenue, months):
+    if months == 0:
+        return 0  # To avoid division by zero
+    return current_revenue / months
+
+def generate_business_insights(current_revenue, previous_revenue, total_expenses, customer_base, months):
+    # Calculate metrics
+    calculated_growth_rate = calculate_growth_rate(current_revenue, previous_revenue)
+    profit_margin = calculate_profit_margin(current_revenue, total_expenses)
+    average_revenue_per_month = calculate_average_revenue(current_revenue, months)
+
+    suggestions = []
+
+    # Revenue Analysis
+    if current_revenue < 50000:
+        suggestions.append("Your revenue is relatively low. Consider implementing aggressive marketing strategies to attract new customers.")
+    elif current_revenue > 500000:
+        suggestions.append("With a high revenue, ensure you are investing in sustainable growth and exploring expansion opportunities.")
+
+    # Profit Margin Analysis
+    if profit_margin < 15:
+        suggestions.append("Your profit margin is below industry standards. Focus on optimizing your supply chain and reducing operational costs.")
+    elif 15 <= profit_margin < 25:
+        suggestions.append("A moderate profit margin suggests potential. Evaluate your pricing strategy and consider adding value-added services.")
+    elif profit_margin >= 25:
+        suggestions.append("Excellent profit margin! Consider reinvesting in innovation or enhancing customer experience to maintain this advantage.")
+
+    # Growth Rate Analysis
+    if calculated_growth_rate < 5:
+        suggestions.append("A low growth rate indicates potential stagnation. Explore new market segments or diversify your product offerings.")
+    elif 5 <= calculated_growth_rate < 15:
+        suggestions.append("Your growth rate is healthy. Keep an eye on market trends and be ready to adapt to changes.")
+    elif calculated_growth_rate >= 15:
+        suggestions.append("Impressive growth! Consider scalability strategies to sustain this momentum.")
+
+    # Average Revenue Analysis
+    suggestions.append(f"The average revenue per month is ${average_revenue_per_month:.2f}.")
+
+    # Customer Base Analysis
+    if customer_base < 100:
+        suggestions.append("A small customer base may limit your market impact. Focus on customer retention and word-of-mouth referrals.")
+    elif 100 <= customer_base < 500:
+        suggestions.append("A growing customer base is encouraging. Consider loyalty programs to enhance customer retention.")
+    elif customer_base >= 500:
+        suggestions.append("With a substantial customer base, explore opportunities for upselling and cross-selling products.")
+
+    # General Recommendations
+    suggestions.append("Regularly review your financial metrics to identify areas for improvement.")
+    suggestions.append("Engage with your customers to gather feedback and adapt your offerings based on their needs.")
+    suggestions.append("Consider leveraging data analytics to better understand market trends and customer behavior.")
+
+    return suggestions, calculated_growth_rate, profit_margin, average_revenue_per_month
