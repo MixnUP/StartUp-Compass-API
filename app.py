@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask
 from views import views
 from flask_cors import CORS
 
