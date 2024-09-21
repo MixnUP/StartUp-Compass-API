@@ -418,6 +418,106 @@
     }</pre>
         </div>
     </div>    
+
+    <!-- Section for interest-by-region -->
+    <div class="api-section">
+        <h2>GET /interest_by_region</h2>
+        <p>Retrieve Google Trends data for a specified niche, broken down by region, to visualize interest levels using a pie chart.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for which to fetch Google Trends data.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>The time range for the trends data (default is 'today 12-m').</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The geographical area for the trends data (default is 'US').</td>
+                    <td>No</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-request">
+            <h3>Example Request:</h3>
+            <p>Below is an example of a request URL with query parameters:</p>
+            <pre>
+    GET /interest_by_region?niche=coffee&timeframe=today%2012-m&location=US
+            </pre>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <p>The response will return interest data broken down by region in JSON format:</p>
+            <pre>{
+            {
+                "labels": [
+                    "Autonomous Region in Muslim Mindanao",
+                    "Bicol",
+                    "Cagayan Valley",
+                    "Calabarzon",
+                    "Caraga",
+                    "Central Luzon",
+                    "Central Visayas",
+                    "Cordillera Administrative Region",
+                    "Davao Region",
+                    "Eastern Visayas",
+                    "Ilocos Region",
+                    "MIMAROPA",
+                    "Metro Manila",
+                    "Northern Mindanao",
+                    "Region XII",
+                    "Western Visayas",
+                    "Zamboanga Peninsula"
+                ],
+                "values": [
+                    83,
+                    62,
+                    55,
+                    77,
+                    66,
+                    72,
+                    63,
+                    64,
+                    69,
+                    60,
+                    90,
+                    63,
+                    100,
+                    66,
+                    67,
+                    67,
+                    72
+                ]
+            }
+    }</pre>
+        </div>
+
+        <div class="error-response">
+            <h3>Error Response:</h3>
+            <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+            <pre>{
+        "error": "Niche parameter is required."
+    }</pre>
+        </div>
+    </div>
+
     
         
 </div>

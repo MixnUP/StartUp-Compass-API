@@ -383,3 +383,40 @@ def generate_business_insights(current_revenue, previous_revenue, total_expenses
     suggestions.append("Consider leveraging data analytics to better understand market trends and customer behavior.")
 
     return suggestions, calculated_growth_rate, profit_margin, average_revenue_per_month
+
+import json
+from pytrends.request import TrendReq
+
+def get_interest_by_region(niche, timeframe='today 12-m', location='US'):
+    """
+    Fetch and aggregate Google Trends data by region for a given niche.
+    
+    Parameters:
+    - niche (str): Search term for Google Trends.
+    - timeframe (str): Time range for trends (default is 1 year).
+    - location (str): Location for the trends data.
+
+    Returns:
+    - dict: JSON-ready data for pie chart with regions and their corresponding interest scores.
+    """
+    pytrends = TrendReq(hl='en-US', tz=360)
+    pytrends.build_payload([niche], timeframe=timeframe, geo=location)
+    
+    # Fetch regional interest data
+    regional_data = pytrends.interest_by_region(resolution='COUNTRY', inc_low_vol=True)
+
+    # Filter and prepare the data
+    if regional_data.empty:
+        return {'error': 'No data found for the specified niche and location.'}
+
+    # Reset index to have regions as a column
+    regional_data.reset_index(inplace=True)
+    
+    # Convert to JSON-friendly format for pie chart
+    pie_chart_data = {
+        'labels': regional_data['geoName'].tolist(),  # Regions
+        'values': regional_data[niche].tolist()  # Interest scores
+    }
+
+    return json.dumps(pie_chart_data, indent=4)
+

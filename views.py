@@ -168,7 +168,7 @@ def business_assessment():
     insights, growth_rate, profit_margin, average_revenue_per_month = generate_business_insights(
         current_revenue, previous_revenue, total_expenses, customer_base, months
     )
-
+    
     return jsonify({
         'insights': insights,
         'growth_rate': growth_rate,
@@ -176,3 +176,22 @@ def business_assessment():
         'average_revenue_per_month': average_revenue_per_month,
         'message': 'Business assessment completed successfully.'
     })
+    
+    
+@views.route('/interest_by_region', methods=['GET'])
+def interest_by_region():
+    """
+    API endpoint to get Google Trends interest by region for a specific niche.
+    """
+    niche = request.args.get('niche')
+    timeframe = request.args.get('timeframe', 'today 12-m')  # Default to 1 year
+    location = request.args.get('location', 'US')  # Default to US
+
+    if not niche:
+        return jsonify({'error': 'Niche parameter is required.'}), 400
+
+    # Call the function to get interest by region
+    pie_chart_data = get_interest_by_region(niche, timeframe, location)
+
+    # Return the response as JSON
+    return jsonify(json.loads(pie_chart_data))  
