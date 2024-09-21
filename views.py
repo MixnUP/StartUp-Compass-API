@@ -143,40 +143,33 @@ def calculate_roi_api():
 
 @views.route('/business-assessment', methods=['GET'])
 def business_assessment():
-    """
-    Flask API endpoint to assess business metrics based on user input.
-
-    Query parameters:
-    - current_revenue (float): The total revenue for the current period.
-    - previous_revenue (float): The total revenue for the previous period.
-    - total_expenses (float): The total expenses incurred during the current period.
-    - customer_base (int): The total number of customers for the current period.
-    - months (int): The number of months over which to calculate average revenue (default is 12).
-
-    Returns:
-    - JSON: Insights, growth rate, profit margin, and average revenue per month.
-    """
     current_revenue = request.args.get('current_revenue', type=float)
     previous_revenue = request.args.get('previous_revenue', type=float)
     total_expenses = request.args.get('total_expenses', type=float)
     customer_base = request.args.get('customer_base', type=int)
     months = request.args.get('months', default=12, type=int)
+    industry = request.args.get('industry', type=str)
 
-    if None in [current_revenue, previous_revenue, total_expenses, customer_base]:
+    if None in [current_revenue, previous_revenue, total_expenses, customer_base, months, industry]:
         return jsonify({'error': 'Missing required parameters.'}), 400
 
-    insights, growth_rate, profit_margin, average_revenue_per_month = generate_business_insights(
-        current_revenue, previous_revenue, total_expenses, customer_base, months
+    try:
+        low_growth_rate_threshold, low_profit_margin_threshold = fetch_industry_benchmarks(industry)
+    except Exception as e:
+        return jsonify({'error': f'Failed to fetch benchmarks for industry {industry}: {str(e)}'}), 400
+
+    insights = generate_business_insights(
+        current_revenue, previous_revenue, total_expenses, customer_base, months,
+        low_growth_rate_threshold, low_profit_margin_threshold
     )
     
     return jsonify({
-        'insights': insights,
-        'growth_rate': growth_rate,
-        'profit_margin': profit_margin,
-        'average_revenue_per_month': average_revenue_per_month,
+        'insights': insights['suggestions'],
+        'growth_rate': insights['growth_rate'],
+        'profit_margin': insights['profit_margin'],
+        'average_revenue_per_month': insights['average_revenue_per_month'],
         'message': 'Business assessment completed successfully.'
     })
-    
     
 @views.route('/interest_by_region', methods=['GET'])
 def interest_by_region():

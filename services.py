@@ -5,6 +5,7 @@ import numpy as np
 from prophet import Prophet
 from ruptures import Pelt
 from datetime import datetime
+import yfinance as yf
 # with plotly
 
 
@@ -178,7 +179,7 @@ def get_trend_summary(report):
     trend_summary = report.get('trend_summary', {})
     return json.dumps(trend_summary, indent=4)
 
-# TIMESTAMP CONVERTER
+# TIMESTAMP CONVERTER / JSON CONVERTERS
 def convert_timestamps_to_strings(data):
     """Converts Timestamp keys in a dictionary to string format 'YYYY-MM-DD'."""
     formatted_data = {}
@@ -336,34 +337,86 @@ def calculate_average_revenue(current_revenue, months):
         return 0  # To avoid division by zero
     return current_revenue / months
 
-def generate_business_insights(current_revenue, previous_revenue, total_expenses, customer_base, months):
+def fetch_profit_margin(company_symbol):
+    try:
+        stock = yf.Ticker(company_symbol)
+        financials = stock.financials
+        if 'Gross Profit' in financials.index and 'Total Revenue' in financials.index:
+            profit_margin = (financials.loc['Gross Profit'] / financials.loc['Total Revenue']).mean()
+            return profit_margin * 100  # Convert to percentage
+    except Exception as e:
+        print(f"Error fetching profit margin for {company_symbol}: {e}")
+    return None
+
+def fetch_industry_benchmarks(industry):
+    industry_stocks = {
+        'Retail': ['WMT', 'AMZN', 'TGT'],
+        'Tech': ['AAPL', 'MSFT', 'GOOGL'],
+        # Add more industries as needed
+    }
+
+    try:
+        if industry in industry_stocks:
+            profit_margins = []
+            for symbol in industry_stocks[industry]:
+                margin = fetch_profit_margin(symbol)
+                if margin is not None:
+                    profit_margins.append(margin)
+            avg_profit_margin = sum(profit_margins) / len(profit_margins) if profit_margins else 20
+
+            # Example: Use a specific ETF for growth rate
+            if industry == 'Retail':
+                ticker = 'XRT'  # Retail ETF
+            elif industry == 'Tech':
+                ticker = 'XLK'  # Tech ETF
+            else:
+                ticker = f"{industry} ETF"  # Placeholder for other industries
+            
+            data = yf.download(ticker, period="1y")  # Get historical data
+            avg_growth_rate = data['Close'].pct_change().mean() * 100  # Annualized growth rate
+
+            return avg_growth_rate, avg_profit_margin
+    except Exception as e:
+        print(f"Error fetching benchmarks for {industry}: {e}")
+    
+    return 5, 15  # Default values in case of error
+
+def generate_business_insights(current_revenue, previous_revenue, total_expenses, customer_base, months, low_growth_rate_threshold, low_profit_margin_threshold):
+    # Input validation
+    if current_revenue < 0 or previous_revenue < 0 or total_expenses < 0 or customer_base < 0 or months <= 0:
+        raise ValueError("Revenue, expenses, and customer base must be non-negative and months must be positive.")
+
     # Calculate metrics
     calculated_growth_rate = calculate_growth_rate(current_revenue, previous_revenue)
     profit_margin = calculate_profit_margin(current_revenue, total_expenses)
     average_revenue_per_month = calculate_average_revenue(current_revenue, months)
+
+    # Define thresholds based on fetched benchmarks
+    high_revenue_threshold = current_revenue * 2  # Example: double the current revenue
+    medium_profit_margin_threshold = low_profit_margin_threshold + 10  # Adding a buffer for medium threshold
 
     suggestions = []
 
     # Revenue Analysis
     if current_revenue < 50000:
         suggestions.append("Your revenue is relatively low. Consider implementing aggressive marketing strategies to attract new customers.")
-    elif current_revenue > 500000:
+    elif current_revenue > high_revenue_threshold:
         suggestions.append("With a high revenue, ensure you are investing in sustainable growth and exploring expansion opportunities.")
 
     # Profit Margin Analysis
-    if profit_margin < 15:
+    if profit_margin < low_profit_margin_threshold:
         suggestions.append("Your profit margin is below industry standards. Focus on optimizing your supply chain and reducing operational costs.")
-    elif 15 <= profit_margin < 25:
+    elif profit_margin < medium_profit_margin_threshold:
         suggestions.append("A moderate profit margin suggests potential. Evaluate your pricing strategy and consider adding value-added services.")
-    elif profit_margin >= 25:
+    else:
         suggestions.append("Excellent profit margin! Consider reinvesting in innovation or enhancing customer experience to maintain this advantage.")
 
     # Growth Rate Analysis
     if calculated_growth_rate < 5:
         suggestions.append("A low growth rate indicates potential stagnation. Explore new market segments or diversify your product offerings.")
-    elif 5 <= calculated_growth_rate < 15:
+    elif calculated_growth_rate < low_growth_rate_threshold:
         suggestions.append("Your growth rate is healthy. Keep an eye on market trends and be ready to adapt to changes.")
-    elif calculated_growth_rate >= 15:
+    else:
         suggestions.append("Impressive growth! Consider scalability strategies to sustain this momentum.")
 
     # Average Revenue Analysis
@@ -372,20 +425,25 @@ def generate_business_insights(current_revenue, previous_revenue, total_expenses
     # Customer Base Analysis
     if customer_base < 100:
         suggestions.append("A small customer base may limit your market impact. Focus on customer retention and word-of-mouth referrals.")
-    elif 100 <= customer_base < 500:
+    elif customer_base < 500:
         suggestions.append("A growing customer base is encouraging. Consider loyalty programs to enhance customer retention.")
-    elif customer_base >= 500:
+    else:
         suggestions.append("With a substantial customer base, explore opportunities for upselling and cross-selling products.")
 
     # General Recommendations
-    suggestions.append("Regularly review your financial metrics to identify areas for improvement.")
-    suggestions.append("Engage with your customers to gather feedback and adapt your offerings based on their needs.")
-    suggestions.append("Consider leveraging data analytics to better understand market trends and customer behavior.")
+    suggestions.extend([
+        "Regularly review your financial metrics to identify areas for improvement.",
+        "Engage with your customers to gather feedback and adapt your offerings based on their needs.",
+        "Consider leveraging data analytics to better understand market trends and customer behavior."
+    ])
 
-    return suggestions, calculated_growth_rate, profit_margin, average_revenue_per_month
+    return {
+        "suggestions": suggestions,
+        "growth_rate": calculated_growth_rate,
+        "profit_margin": profit_margin,
+        "average_revenue_per_month": average_revenue_per_month
+    }
 
-import json
-from pytrends.request import TrendReq
 
 def get_interest_by_region(niche, timeframe='today 12-m', location='US'):
     """
