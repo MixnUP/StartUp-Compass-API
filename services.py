@@ -348,38 +348,61 @@ def fetch_profit_margin(company_symbol):
         print(f"Error fetching profit margin for {company_symbol}: {e}")
     return None
 
+import yfinance as yf
+
 def fetch_industry_benchmarks(industry):
     industry_stocks = {
         'Retail': ['WMT', 'AMZN', 'TGT'],
         'Tech': ['AAPL', 'MSFT', 'GOOGL'],
+        'Healthcare': ['JNJ', 'PFE', 'MRK'],
+        'Finance': ['JPM', 'BAC', 'GS'],
+        'Energy': ['XOM', 'CVX', 'BP'],
+        'Consumer Goods': ['PG', 'KO', 'PEP'],
+        'Utilities': ['NEE', 'DUK', 'SO'],
+        'Industrial': ['GE', 'BA', 'HON'],
         # Add more industries as needed
     }
 
     try:
         if industry in industry_stocks:
+            # Fetch profit margins for individual stocks
             profit_margins = []
             for symbol in industry_stocks[industry]:
-                margin = fetch_profit_margin(symbol)
+                margin = fetch_profit_margin(symbol)  # Custom function to fetch profit margin
                 if margin is not None:
                     profit_margins.append(margin)
+            
+            # Calculate average profit margin or use default value if no data
             avg_profit_margin = sum(profit_margins) / len(profit_margins) if profit_margins else 20
 
-            # Example: Use a specific ETF for growth rate
-            if industry == 'Retail':
-                ticker = 'XRT'  # Retail ETF
-            elif industry == 'Tech':
-                ticker = 'XLK'  # Tech ETF
-            else:
-                ticker = f"{industry} ETF"  # Placeholder for other industries
+            # Map industries to specific ETFs for growth rate calculations
+            industry_etfs = {
+                'Retail': 'XRT',       # Retail ETF
+                'Tech': 'XLK',         # Tech ETF
+                'Healthcare': 'XLV',   # Healthcare ETF
+                'Finance': 'XLF',      # Finance ETF
+                'Energy': 'XLE',       # Energy ETF
+                'Consumer Goods': 'XLP',  # Consumer Staples ETF
+                'Utilities': 'XLU',    # Utilities ETF
+                'Industrial': 'XLI'    # Industrial ETF
+            }
             
-            data = yf.download(ticker, period="1y")  # Get historical data
+            # Determine the appropriate ETF ticker
+            ticker = industry_etfs.get(industry, f"{industry} ETF")  # Fallback to placeholder if no specific ETF
+
+            # Fetch historical data from Yahoo Finance
+            data = yf.download(ticker, period="1y")
+            
+            # Calculate the average growth rate based on the closing prices
             avg_growth_rate = data['Close'].pct_change().mean() * 100  # Annualized growth rate
 
             return avg_growth_rate, avg_profit_margin
     except Exception as e:
         print(f"Error fetching benchmarks for {industry}: {e}")
     
-    return 5, 15  # Default values in case of error
+    # Return default values in case of an error
+    return 5, 15
+
 
 def generate_business_insights(current_revenue, previous_revenue, total_expenses, customer_base, months, low_growth_rate_threshold, low_profit_margin_threshold):
     # Input validation
