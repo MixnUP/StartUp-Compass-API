@@ -137,10 +137,6 @@ def calculate_roi_api():
 
     return jsonify(roi_data)
 
-
-
-# NEW VIEWS:
-
 @views.route('/business-assessment', methods=['GET'])
 def business_assessment():
     current_revenue = request.args.get('current_revenue', type=float)

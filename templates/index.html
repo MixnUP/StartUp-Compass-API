@@ -1,88 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Documentation - Google Trends Flask API</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .api-section {
-            background-color: #fff;
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .api-section h2 {
-            margin-top: 0;
-            color: #333;
-        }
-
-        .api-section code {
-            background-color: #f8f8f8;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-
-        .params, .response {
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 4px;
-            border-left: 4px solid #3498db;
-            margin: 10px 0;
-        }
-
-        .params table, .response table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .params table th, .params table td, 
-        .response table th, .response table td {
-            text-align: left;
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-
-        .example-response {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            border-radius: 4px;
-        }
-
-        .example-response pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow: auto;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>API Documentation - Google Trends Flask API</title>
+    </head>
 <body>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    
+    header {
+        background-color: #4a90e2;
+        color: #fff;
+        padding: 15px 0;
+        text-align: center;
+    }
+    
+    header h1 {
+        margin: 0;
+        font-size: 2.5em;
+    }
+    
+    .container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+    
+    .api-section {
+        background-color: #fff;
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+    
+    .api-section:hover {
+        transform: translateY(-2px);
+    }
+    
+    .api-section h2 {
+        margin-top: 0;
+        color: #4a90e2;
+    }
+    
+    .params, .response, .example-response, .error-response {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 4px;
+        border-left: 4px solid #4a90e2;
+        margin: 15px 0;
+    }
+    
+    .params table, .response table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .params table th, .params table td, 
+    .response table th, .response table td {
+        text-align: left;
+        padding: 12px;
+        border: 1px solid #ddd;
+    }
+    
+    .params table th {
+        background-color: #eaeaea;
+    }
+    
+    .example-response pre, .error-response pre {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        border-radius: 4px;
+        overflow: auto;
+    }
+    
+    .example-response pre, .error-response pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+    
+    .example-request {
+        background-color: #e9f5ff;
+        border: 1px dashed #4a90e2;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 15px 0;
+    }
+    
+</style>
 
 <header>
     <h1>StartUp-Compass Flask API Documentation</h1>
