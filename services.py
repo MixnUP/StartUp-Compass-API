@@ -321,7 +321,6 @@ def calculate_roi(df, niche, investment_amount=1000, forecast_period=90):
     }
 
 
-# NEW FUNCTIONS:
 def calculate_growth_rate(current_value, previous_value):
     if previous_value == 0:
         return 0  # To avoid division by zero
@@ -347,8 +346,6 @@ def fetch_profit_margin(company_symbol):
     except Exception as e:
         print(f"Error fetching profit margin for {company_symbol}: {e}")
     return None
-
-import yfinance as yf
 
 def fetch_industry_benchmarks(industry):
     industry_stocks = {
