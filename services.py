@@ -6,6 +6,7 @@ from prophet import Prophet
 from ruptures import Pelt
 from datetime import datetime
 import yfinance as yf
+import time
 # with plotly
 
 
@@ -498,3 +499,90 @@ def get_interest_by_region(niche, timeframe='today 12-m', location='US'):
 
     return json.dumps(pie_chart_data, indent=4)
 
+
+
+
+def get_current_month_interest_function(niche='iced coffee', location='US', timeframe='today 12-m'):
+    """
+    Retrieves the interest score for the current month for a given niche.
+    
+    Args:
+        niche (str): Search term for Google Trends.
+        location (str): Location code for the trends (e.g., US, PH).
+        timeframe (str): Time range for trends (default is 1 year).
+        
+    Returns:
+        dict: Interest score for the current month or an error message.
+    """
+    # Fetch Google Trends data
+    trending_data = get_google_trends_data(niche, timeframe=timeframe, location=location)
+
+    if trending_data is None:
+        return {'error': 'No data found for the given niche or location.'}, 404
+
+    # Calculate interest for the current month
+    current_month_interest = get_current_month_interest(trending_data, niche)
+
+    return current_month_interest
+
+def trend_seeker(keyword, location, timeframe, top_n=5):
+    """
+    Retrieves the top keyword suggestions based on the provided keyword.
+
+    Args:
+        keyword (str): A keyword to analyze.
+        location (str): Location code for trends (e.g., US, PH).
+        timeframe (str): Time range for trends.
+        top_n (int): The number of top suggestions to return.
+
+    Returns:
+        dict: A dictionary containing the suggestions or an error message.
+    """
+    pytrends = TrendReq(hl='en-US', tz=360)
+
+    try:
+        # Get keyword suggestions
+        suggestions_data = pytrends.suggestions(keyword=keyword)
+        if not suggestions_data:
+            return {"error": "No suggestions found for the given keyword."}
+
+        # Extract the top N titles from suggestions
+        suggested_keywords = [suggestion['title'] for suggestion in suggestions_data[:top_n]]
+        
+        error_message = "No Data Found"
+        
+        results = []
+        for niche in suggested_keywords:
+            tries = 3
+            while True:  # Loop for retrying on failure
+                try:
+                    # Fetch current month interest data for the niche
+                    niche_data = get_current_month_interest_function(niche, location, timeframe)
+                    results.append({
+                        'keyword': niche,
+                        'niche_data': niche_data,  # Directly append the niche_data as it is already a dict
+                    })
+                    break  # Break the loop if successful
+
+                except Exception as e:
+                    if '429' in str(e):
+                        tries -= 1
+                        if tries == 0:
+                            return {
+                                'error': error_message,
+                                'suggested_keywords': suggested_keywords
+                            }
+                        time.sleep(3)  # Longer wait time for rate limiting
+                    else:
+                        return {"error": str(e)}  # For other exceptions
+
+            # Sleep for 5 seconds between requests to avoid hitting rate limits
+            time.sleep(5)  # Adjust as needed
+            
+        return {
+            'original_keyword': keyword,
+            'top_suggestions': results
+        }
+
+    except Exception as e:
+        return {"error": str(e)}

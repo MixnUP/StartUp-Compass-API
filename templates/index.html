@@ -445,7 +445,6 @@
         </div>
     </div>
 
-    
 
     <!-- Section for interest-by-region -->
     <div class="api-section">
@@ -546,7 +545,98 @@
         </div>
     </div>
 
-    
+    <!-- Section for trend seeker -->
+    <div class="api-section">
+        <h2>GET /trend_seeker</h2>
+        <p>Retrieve the top keyword suggestions based on a specified keyword along with their current month interest data.</p>
+
+        <div class="notice" style="background-color: #fff3cd; color: #856404; padding: 15px; border: 1px solid #ffeeba; border-radius: 5px; margin-bottom: 20px;">
+            <strong>Notice:</strong> Please be aware that loading may take some time, especially for popular keywords.
+        </div>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for which to fetch keyword suggestions.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>The time range for trends data (default is 'today 12-m').</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The geographical area for the trends data (default is 'US').</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><code>top_n</code></td>
+                    <td>Integer</td>
+                    <td>The number of top suggestions to return (default is 5).</td>
+                    <td>No</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-request">
+            <h3>Example Request:</h3>
+            <p>Below is an example of a request URL with query parameters:</p>
+            <pre>
+    GET /trend_seeker?niche=coffee&timeframe=today%2012-m&location=US&top_n=5
+            </pre>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <p>The response will return the top suggestions along with their interest data in JSON format:</p>
+            <pre>{
+        "original_keyword": "coffee",
+        "top_suggestions": [
+            {
+                "keyword": "iced coffee",
+                "niche_data": {
+                    "latest_interest_score": 75,
+                    "average_interest_score": 65,
+                    "month": 9,
+                    "year": 2024
+                }
+            },
+            {
+                "keyword": "coffee beans",
+                "niche_data": {
+                    "latest_interest_score": 82,
+                    "average_interest_score": 70,
+                    "month": 9,
+                    "year": 2024
+                }
+            }
+            // ... additional suggestions ...
+        ]
+    }</pre>
+        </div>
+
+        <div class="error-response">
+            <h3>Error Response:</h3>
+            <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+            <pre>{
+        "error": "Niche parameter is required."
+    }</pre>
+        </div>
+    </div>
+
+
         
 </div>
 

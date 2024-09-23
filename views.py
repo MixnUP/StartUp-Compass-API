@@ -184,3 +184,16 @@ def interest_by_region():
 
     # Return the response as JSON
     return jsonify(json.loads(pie_chart_data))  
+
+@views.route('/trend_seeker', methods=['GET'])
+def trend_seeker_api():
+    # Get parameters from the request
+    keyword = request.args.get('niche', default='iced coffee', type=str)
+    location = request.args.get('location', default='US', type=str)
+    timeframe = request.args.get('timeframe', default='today 12-m', type=str)
+    top_n = request.args.get('top_n', default=5, type=int)  # Optional parameter
+
+    # Call the trend_seeker function with the parameters
+    result = trend_seeker(keyword, location, timeframe, top_n)
+
+    return jsonify(result)
