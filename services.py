@@ -306,19 +306,20 @@ def calculate_roi(df, niche, investment_amount=1000, forecast_period=90):
 
     # Convert values to standard Python int and float types
     growth_trend = "upward" if interest_growth > 0 else "downward"
-    roi_percentage = round(float(interest_growth * 100), 2)
+    interest_growth_percentage = round(float(interest_growth * 100), 2)
 
     return {
         'niche': niche,
-        'investment_amount': float(investment_amount),  # Ensure float type
-        'forecast_period_days': int(forecast_period),    # Ensure int type
+        'investment_amount': f"${float(investment_amount)}",  # Ensure float type
+        'forecast_period_days': f"{int(forecast_period)} days",    # Ensure int type
         'initial_interest_score': round(float(initial_interest), 2),  # Ensure float type
         'forecasted_interest_score': round(float(final_forecasted_interest), 2),  # Ensure float type
-        'estimated_roi': round(float(estimated_roi), 2),  # Ensure float type
-        'roi_percentage': roi_percentage,  # Already float type
+        'estimated_roi': f"{round(float(estimated_roi), 2)}%",  # Ensure float type
+        'interest_growth': f"{interest_growth_percentage}%",  # Already float type
         'growth_trend': growth_trend,
         'recommendation': f"Based on the trend, the interest in '{niche}' is expected to {growth_trend}. "
-                          f"Your estimated ROI for a ${investment_amount} investment over {forecast_period} days is {roi_percentage}%."
+                          f"Your estimated ROI for a ${investment_amount} investment over {forecast_period} days is {round(float(estimated_roi), 2)}%. "
+                          f"NOTE: This calculation is based on the percentage growth of the interest score over a period of time."
     }
 
 
@@ -498,8 +499,6 @@ def get_interest_by_region(niche, timeframe='today 12-m', location='US'):
     }
 
     return json.dumps(pie_chart_data, indent=4)
-
-
 
 
 def get_current_month_interest_function(niche='iced coffee', location='US', timeframe='today 12-m'):

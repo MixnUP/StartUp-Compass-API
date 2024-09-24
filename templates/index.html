@@ -283,17 +283,37 @@
                     <td>Time range for trends (e.g., <code>today 12-m</code>).</td>
                     <td><code>today 12-m</code></td>
                 </tr>
+                <tr>
+                    <td><code>investment_amount</code></td>
+                    <td>Float</td>
+                    <td>The amount of money being invested.</td>
+                    <td><code>1000</code></td>
+                </tr>
+                <tr>
+                    <td><code>forecast_period</code></td>
+                    <td>Integer</td>
+                    <td>Number of days into the future to forecast.</td>
+                    <td><code>90</code></td>
+                </tr>
             </table>
         </div>
 
         <div class="example-response">
             <h3>Example Response:</h3>
             <pre>{
-    "predicted_roi": 5.2,
-    "recommendation": "High investment potential."
-}</pre>
+        "niche": "iced coffee",
+        "investment_amount": "$1000",
+        "forecast_period_days": "90 days",
+        "initial_interest_score": 45.7,
+        "forecasted_interest_score": 50.2,
+        "estimated_roi": "1100.45%",
+        "interest_growth": "9.81%",
+        "growth_trend": "upward",
+        "recommendation": "Based on the trend, the interest in 'iced coffee' is expected to grow. Your estimated ROI for a $1000 investment over 90 days is 1100.45%. NOTE: This calculation is based on the percentage growth of the interest score over a period of time."
+    }</pre>
         </div>
     </div>
+
 
     <!-- Section for get-bar-graph-data API -->
     <div class="api-section">
