@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Trends Integration</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<header>
+    <nav>
+        <h1>StartUp Compass API Documentation</h1>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/trends_documentation">Trends</a></li>
+            <li><a href="/metrics_documentation">Metrics</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+    <h2>API Endpoints</h2>
+    <a href="#SECTION_01">SECTION 01 - FinancialDataHelper</a>
+    <a href="#SECTION_02">SECTION 02 - FinancialMetrics</a>
+    <a href="#SECTION_03">SECTION 03 - FinancialAnalysisHelper</a>
+</div>
+
+<div class="container">
+
+    <div class="api-section highlighted-section financial-metrics">
+        <h2>FINANCIAL METRICS SECTION</h2>
+        <p>This section outlines the Financial Metrics API. It provides information about the available endpoints, required input parameters, and example responses. These metrics can be used to analyze financial health, measure performance, and provide insights into market share, risk, and overall business valuation.</p>
+    </div>
+    
+    <div class="api-section highlighted-section section-01" id="SECTION_01">
+        <h2>SECTION 01 - FinancialDataHelper</h2>
+        <p>This section covers the API endpoints related to the <strong>FinancialDataHelper</strong> class, which provides various helper functions that calculate important financial metrics such as average values and ratios, offering a foundational analysis of a company's financial position.</p>
+    </div>
+
+    <!-- Section for calculate_average_total_assets -->
+<div class="api-section">
+    <h2>GET /metrics/calculate_average_total_assets</h2>
+    <p>This endpoint computes the average total assets over a period. Total assets are a key indicator of a company’s overall financial health and stability.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>assets</code></td>
+                <td>Array of Numbers</td>
+                <td>A list of asset values over different periods.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/calculate_average_total_assets?assets=100000,150000,200000,175000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated average total assets in JSON format:</p>
+        <pre>{
+    "average_total_assets": 156250
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameter: assets."
+}</pre>
+    </div>
+</div>
+
+<!-- Section for calculate_average_inventory -->
+<div class="api-section">
+    <h2>GET /metrics/calculate_average_inventory</h2>
+    <p>This endpoint calculates the average inventory over multiple periods.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>inventory</code></td>
+                <td>Array of Numbers</td>
+                <td>A list of inventory values over different periods.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/calculate_average_inventory?inventory=50000,55000,60000,62000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated average inventory in JSON format:</p>
+        <pre>{
+    "average_inventory": 56750
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameter: inventory."
+}</pre>
+    </div>
+</div>
+
+<!-- Section for calculate_average_accounts_receivable -->
+<div class="api-section">
+    <h2>GET /metrics/calculate_average_accounts_receivable</h2>
+    <p>This endpoint calculates the average accounts receivable.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>accounts_receivable</code></td>
+                <td>Array of Numbers</td>
+                <td>A list of accounts receivable values over different periods.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/calculate_average_accounts_receivable?accounts_receivable=30000,35000,40000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated average accounts receivable in JSON format:</p>
+        <pre>{
+    "average_accounts_receivable": 35000
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameter: accounts_receivable."
+}</pre>
+    </div>
+</div>
+
+<!-- Section for calculate_average_sales -->
+<div class="api-section">
+    <h2>GET /metrics/calculate_average_sales</h2>
+    <p>This endpoint calculates the average sales over multiple periods.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>sales</code></td>
+                <td>Array of Numbers</td>
+                <td>A list of sales values over different periods.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/calculate_average_sales?sales=200000,220000,250000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated average sales in JSON format:</p>
+        <pre>{
+    "average_sales": 223333.33
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameter: sales."
+}</pre>
+    </div>
+</div>
+
+<!-- Section for calculate_cost_of_goods_sold -->
+<div class="api-section">
+    <h2>GET /metrics/calculate_cost_of_goods_sold</h2>
+    <p>This endpoint calculates the Cost of Goods Sold (COGS).</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>start_inventory</code></td>
+                <td>Number</td>
+                <td>The inventory value at the start of the period.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>purchases</code></td>
+                <td>Number</td>
+                <td>The total value of goods purchased during the period.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>end_inventory</code></td>
+                <td>Number</td>
+                <td>The inventory value at the end of the period.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/calculate_cost_of_goods_sold?start_inventory=50000&purchases=200000&end_inventory=30000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated COGS in JSON format:</p>
+        <pre>{
+    "cost_of_goods_sold": 220000
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameter: start_inventory, purchases, or end_inventory."
+}</pre>
+    </div>
+</div>
+
+<!-- Section for get_financial_ratios -->
+<div class="api-section">
+    <h2>GET /metrics/get_financial_ratios</h2>
+    <p>This endpoint returns key financial ratios such as debt-to-equity, debt ratio, and current ratio.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>total_liabilities</code></td>
+                <td>Number</td>
+                <td>The total liabilities of the company.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_assets</code></td>
+                <td>Number</td>
+                <td>The total assets of the company.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>current_assets</code></td>
+                <td>Number</td>
+                <td>The current assets of the company.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>current_liabilities</code></td>
+                <td>Number</td>
+                <td>The current liabilities of the company.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/get_financial_ratios?total_liabilities=50000&total_assets=100000&current_assets=60000&current_liabilities=40000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated financial ratios in JSON format:</p>
+        <pre>{
+    "debt_to_equity": 0.5,
+    "debt_ratio": 0.33,
+    "current_ratio": 1.5
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: total_liabilities, total_assets, current_assets, or current_liabilities."
+}</pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- =============================================================================================================== -->
+<!-- =============================================================================================================== -->
+<!-- SECTION 02 - FinancialMetrics -->
+<div class="api-section highlighted-section section-02" id="SECTION_02">
+    <h2>SECTION 02 - FinancialMetrics</h2>
+    <p>This section covers the API endpoints related to the <strong>FinancialMetrics</strong> class, which provides various functions for calculating key financial metrics to assess a company's performance and financial health.</p>
+</div>
+
+<!-- Total Revenue -->
+<div class="api-section">
+    <h2>GET /metrics/total_revenue</h2>
+    <p>This endpoint calculates the total revenue from a list of sales figures, providing insights into a company's income generation.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>sales</code></td>
+                <td>Array of Numbers</td>
+                <td>A list of sales values.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/total_revenue?sales=1000,2000,3000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated total revenue in JSON format:</p>
+        <pre>{
+    "total_revenue": 6000
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameter: sales."
+}</pre>
+    </div>
+</div>
+
+<!-- Revenue Growth Rate -->
+<div class="api-section">
+    <h2>GET /metrics/revenue_growth_rate</h2>
+    <p>This endpoint calculates the revenue growth rate by comparing current and previous revenue, helping assess growth performance.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>current_revenue</code></td>
+                <td>Number</td>
+                <td>The revenue for the current period.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>previous_revenue</code></td>
+                <td>Number</td>
+                <td>The revenue for the previous period.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/revenue_growth_rate?current_revenue=12000&previous_revenue=10000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated revenue growth rate in JSON format:</p>
+        <pre>{
+    "revenue_growth_rate": 0.2
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: current_revenue, previous_revenue."
+}</pre>
+    </div>
+</div>
+
+<!-- Revenue Per User -->
+<div class="api-section">
+    <h2>GET /metrics/revenue_per_user</h2>
+    <p>This endpoint calculates the revenue per user by dividing total revenue by the number of users, indicating user profitability.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>total_revenue</code></td>
+                <td>Number</td>
+                <td>Total revenue generated.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>number_of_users</code></td>
+                <td>Number</td>
+                <td>Total number of users.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/revenue_per_user?total_revenue=10000&number_of_users=100
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated revenue per user in JSON format:</p>
+        <pre>{
+    "revenue_per_user": 100
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: total_revenue, number_of_users."
+}</pre>
+    </div>
+</div>
+
+<!-- Gross Profit Margin -->
+<div class="api-section">
+    <h2>GET /metrics/gross_profit_margin</h2>
+    <p>This endpoint calculates the gross profit margin, providing insight into the profitability of core business activities.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>gross_profit</code></td>
+                <td>Number</td>
+                <td>The gross profit value.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_revenue</code></td>
+                <td>Number</td>
+                <td>The total revenue value.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/gross_profit_margin?gross_profit=4000&total_revenue=10000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated gross profit margin in JSON format:</p>
+        <pre>{
+    "gross_profit_margin": 0.4
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: gross_profit, total_revenue."
+}</pre>
+    </div>
+</div>
+
+<!-- Operating Profit Margin -->
+<div class="api-section">
+    <h2>GET /metrics/operating_profit_margin</h2>
+    <p>This endpoint calculates the operating profit margin, reflecting the percentage of revenue that remains after covering operating expenses.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>operating_income</code></td>
+                <td>Number</td>
+                <td>The operating income value.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_revenue</code></td>
+                <td>Number</td>
+                <td>The total revenue value.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/operating_profit_margin?operating_income=3000&total_revenue=10000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated operating profit margin in JSON format:</p>
+        <pre>{
+    "operating_profit_margin": 0.3
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: operating_income, total_revenue."
+}</pre>
+    </div>
+</div>
+
+<!-- Net Profit Margin -->
+<div class="api-section">
+    <h2>GET /metrics/net_profit_margin</h2>
+    <p>This endpoint calculates the net profit margin, providing a comprehensive view of a company's profitability after all expenses.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>net_income</code></td>
+                <td>Number</td>
+                <td>The net income value.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_revenue</code></td>
+                <td>Number</td>
+                <td>The total revenue value.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/net_profit_margin?net_income=2000&total_revenue=10000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated net profit margin in JSON format:</p>
+        <pre>{
+    "net_profit_margin": 0.2
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: net_income, total_revenue."
+}</pre>
+    </div>
+</div>
+
+<!-- Return on Investment -->
+<div class="api-section">
+    <h2>GET /metrics/return_on_investment</h2>
+    <p>This endpoint calculates the return on investment (ROI), indicating the efficiency of an investment relative to its cost.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>gain_from_investment</code></td>
+                <td>Number</td>
+                <td>The total gain from the investment.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>cost_of_investment</code></td>
+                <td>Number</td>
+                <td>The total cost of the investment.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/return_on_investment?gain_from_investment=5000&cost_of_investment=2000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated return on investment in JSON format:</p>
+        <pre>{
+    "return_on_investment": 1.5
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: gain_from_investment, cost_of_investment."
+}</pre>
+    </div>
+</div>
+
+<!-- Current Ratio -->
+<div class="api-section">
+    <h2>GET /metrics/current_ratio</h2>
+    <p>This endpoint calculates the current ratio, a liquidity metric that assesses a company's ability to pay short-term obligations.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>current_assets</code></td>
+                <td>Number</td>
+                <td>Total current assets.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>current_liabilities</code></td>
+                <td>Number</td>
+                <td>Total current liabilities.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/current_ratio?current_assets=10000&current_liabilities=5000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated current ratio in JSON format:</p>
+        <pre>{
+    "current_ratio": 2
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: current_assets, current_liabilities."
+}</pre>
+    </div>
+</div>
+
+<!-- Quick Ratio -->
+<div class="api-section">
+    <h2>GET /metrics/quick_ratio</h2>
+    <p>This endpoint calculates the quick ratio, also known as the acid-test ratio, which measures the ability to meet short-term obligations with its most liquid assets.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>current_assets</code></td>
+                <td>Number</td>
+                <td>Total current assets.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>inventory</code></td>
+                <td>Number</td>
+                <td>Total inventory.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>current_liabilities</code></td>
+                <td>Number</td>
+                <td>Total current liabilities.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/quick_ratio?current_assets=15000&inventory=3000&current_liabilities=5000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated quick ratio in JSON format:</p>
+        <pre>{
+    "quick_ratio": 2.4
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: current_assets, inventory, current_liabilities."
+}</pre>
+    </div>
+</div>
+
+<!-- Debt to Equity Ratio -->
+<div class="api-section">
+    <h2>GET /metrics/debt_to_equity_ratio</h2>
+    <p>This endpoint calculates the debt-to-equity ratio, a measure of a company's financial leverage by comparing total debt to shareholder equity.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>total_debt</code></td>
+                <td>Number</td>
+                <td>Total debt value.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>shareholder_equity</code></td>
+                <td>Number</td>
+                <td>Total shareholder equity value.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/debt_to_equity_ratio?total_debt=20000&shareholder_equity=30000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated debt-to-equity ratio in JSON format:</p>
+        <pre>{
+    "debt_to_equity_ratio": 0.67
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: total_debt, shareholder_equity."
+}</pre>
+    </div>
+</div>
+
+<!-- Debt Ratio -->
+<div class="api-section">
+    <h2>GET /metrics/debt_ratio</h2>
+    <p>This endpoint calculates the debt ratio, indicating the proportion of a company's assets that are financed by debt.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>total_debt</code></td>
+                <td>Number</td>
+                <td>Total debt value.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_assets</code></td>
+                <td>Number</td>
+                <td>Total assets value.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/debt_ratio?total_debt=20000&total_assets=50000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated debt ratio in JSON format:</p>
+        <pre>{
+    "debt_ratio": 0.4
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: total_debt, total_assets."
+}</pre>
+    </div>
+</div>
+
+<!-- Interest Coverage Ratio -->
+<div class="api-section">
+    <h2>GET /metrics/interest_coverage_ratio</h2>
+    <p>This endpoint calculates the interest coverage ratio, measuring a company's ability to pay interest on its outstanding debt.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>ebit</code></td>
+                <td>Number</td>
+                <td>Earnings before interest and taxes.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>interest_expense</code></td>
+                <td>Number</td>
+                <td>Total interest expenses.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/interest_coverage_ratio?ebit=3000&interest_expense=500
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated interest coverage ratio in JSON format:</p>
+        <pre>{
+    "interest_coverage_ratio": 6
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: ebit, interest_expense."
+}</pre>
+    </div>
+</div>
+
+<!-- Market Share -->
+<div class="api-section">
+    <h2>GET /metrics/market_share</h2>
+    <p>This endpoint calculates the market share, representing a company's sales as a percentage of total market sales.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>company_sales</code></td>
+                <td>Number</td>
+                <td>Total sales of the company.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_market_sales</code></td>
+                <td>Number</td>
+                <td>Total sales of the market.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/market_share?company_sales=15000&total_market_sales=100000
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated market share in JSON format:</p>
+        <pre>{
+    "market_share": 0.15
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: company_sales, total_market_sales."
+}</pre>
+    </div>
+</div>
+
+<!-- Relative Market Share -->
+<div class="api-section">
+    <h2>GET /metrics/relative_market_share</h2>
+    <p>This endpoint calculates the relative market share, comparing a company's market share to that of its largest competitor.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>company_market_share</code></td>
+                <td>Number</td>
+                <td>The company's market share.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>competitor_market_share</code></td>
+                <td>Number</td>
+                <td>The competitor's market share.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/relative_market_share?company_market_share=0.15&competitor_market_share=0.10
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated relative market share in JSON format:</p>
+        <pre>{
+    "relative_market_share": 1.5
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: company_market_share, competitor_market_share."
+}</pre>
+    </div>
+</div>
+
+<!-- Customer Acquisition Cost -->
+<div class="api-section">
+    <h2>GET /metrics/customer_acquisition_cost</h2>
+    <p>This endpoint calculates the customer acquisition cost (CAC), representing the cost associated with acquiring a new customer.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>total_sales_and_marketing_expenses</code></td>
+                <td>Number</td>
+                <td>Total sales and marketing expenses.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>number_of_new_customers</code></td>
+                <td>Number</td>
+                <td>Number of new customers acquired.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/customer_acquisition_cost?total_sales_and_marketing_expenses=10000&number_of_new_customers=50
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated customer acquisition cost in JSON format:</p>
+        <pre>{
+    "customer_acquisition_cost": 200
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: total_sales_and_marketing_expenses, number_of_new_customers."
+}</pre>
+    </div>
+</div>
+
+<!-- Customer Lifetime Value -->
+<div class="api-section">
+    <h2>GET /metrics/customer_lifetime_value</h2>
+    <p>This endpoint calculates the customer lifetime value (CLV), estimating the total revenue a business can expect from a single customer account.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>average_purchase_value</code></td>
+                <td>Number</td>
+                <td>Average value of each purchase.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>purchase_frequency</code></td>
+                <td>Number</td>
+                <td>How often the customer makes a purchase in a specific period.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>customer_lifespan</code></td>
+                <td>Number</td>
+                <td>Expected lifespan of the customer relationship in years.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>
+GET /metrics/customer_lifetime_value?average_purchase_value=100&purchase_frequency=12&customer_lifespan=5
+        </pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return the calculated customer lifetime value in JSON format:</p>
+        <pre>{
+    "customer_lifetime_value": 6000
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters: average_purchase_value, purchase_frequency, customer_lifespan."
+}</pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- =============================================================================================================== -->
+<!-- =============================================================================================================== -->
+<!-- SECTION 03 - FinancialAnalysisHelper -->
+<div class="api-section highlighted-section section-03" id="SECTION_03">
+    <h2>SECTION 03 - FinancialAnalysisHelper</h2>
+    <p>This section covers the API endpoints related to the <strong>FinancialAnalysisHelper</strong> class, which provides various functions for analyzing financial health, measuring performance, and assessing risk. The endpoints include methods for financial analysis, valuation, performance measurement, risk analysis, market share analysis, and overall business health analysis.</p>
+</div>
+
+<!-- Section for Financial Analysis Helper -->
+<div class="api-section">
+    <h2>GET /metrics/financial_analysis</h2>
+    <p>Submit financial metrics as query parameters to receive insights based on your business's financial health, including ratios and performance metrics.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>assets</code></td>
+                <td>Array of Numbers</td>
+                <td>List of asset values.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>inventory</code></td>
+                <td>Array of Numbers</td>
+                <td>List of inventory values.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>accounts_receivable</code></td>
+                <td>Array of Numbers</td>
+                <td>List of accounts receivable values.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>sales</code></td>
+                <td>Array of Numbers</td>
+                <td>List of sales figures.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>GET /metrics/financial_analysis?assets=10000&assets=15000&inventory=5000&accounts_receivable=7000&sales=20000&sales=25000</pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return calculated financial metrics in JSON format:</p>
+        <pre>{
+    "result": {
+        "liquidity_ratio": value,
+        "profit_margin": value,
+        "return_on_assets": value,
+        "message": "Financial analysis completed successfully."
+    }
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters."
+}</pre>
+    </div>
+</div>
+
+<!-- Section for Valuation -->
+<div class="api-section">
+    <h2>GET /metrics/valuation</h2>
+    <p>Submit valuation metrics as query parameters to receive valuation insights and metrics based on your financial data.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>market_price_per_share</code></td>
+                <td>Number</td>
+                <td>Current market price per share.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>earnings_per_share</code></td>
+                <td>Number</td>
+                <td>Earnings per share.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>market_capitalization</code></td>
+                <td>Number</td>
+                <td>Total market capitalization.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_revenue</code></td>
+                <td>Number</td>
+                <td>Total revenue.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_debt</code></td>
+                <td>Number</td>
+                <td>Total debt.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>cash_and_equivalents</code></td>
+                <td>Number</td>
+                <td>Cash and cash equivalents.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>ebitda</code></td>
+                <td>Number</td>
+                <td>Earnings before interest, taxes, depreciation, and amortization.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>number_of_outstanding_shares</code></td>
+                <td>Number</td>
+                <td>Number of outstanding shares.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>GET /metrics/valuation?market_price_per_share=50&earnings_per_share=5&market_capitalization=1000000&total_revenue=500000&total_debt=300000&cash_and_equivalents=200000&ebitda=100000&number_of_outstanding_shares=20000</pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return valuation metrics in JSON format:</p>
+        <pre>{
+    "valuation_metric": value,
+    "message": "Valuation completed successfully."
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters."
+}</pre>
+    </div>
+</div>
+
+<!-- Section for Performance Measurement -->
+<div class="api-section">
+    <h2>GET /metrics/performance_measurement</h2>
+    <p>Submit performance metrics as query parameters to receive insights on your company's performance based on financial data.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>net_income</code></td>
+                <td>Number</td>
+                <td>Net income of the company.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_assets</code></td>
+                <td>Number</td>
+                <td>Total assets of the company.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>total_equity</code></td>
+                <td>Number</td>
+                <td>Total equity of the company.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>shareholder_equity</code></td>
+                <td>Number</td>
+                <td>Shareholder equity.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>investment_cost</code></td>
+                <td>Number</td>
+                <td>Cost of investment.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>current_assets</code></td>
+                <td>Number</td>
+                <td>Current assets.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>current_liabilities</code></td>
+                <td>Number</td>
+                <td>Current liabilities.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>inventory</code></td>
+                <td>Array of Numbers</td>
+                <td>List of inventory values.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>GET /metrics/performance_measurement?net_income=200000&total_assets=500000&total_equity=300000&shareholder_equity=250000&investment_cost=100000&current_assets=150000&current_liabilities=100000&inventory=20000&inventory=30000</pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return performance metrics in JSON format:</p>
+        <pre>{
+    "performance_metric": value,
+    "message": "Performance measurement completed successfully."
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters."
+}</pre>
+    </div>
+</div>
+
+<!-- Section for Risk Analysis -->
+<div class="api-section">
+    <h2>GET /metrics/risk_analysis</h2>
+    <p>Submit risk metrics as query parameters to receive insights on potential risks associated with your investments and overall business performance.</p>
+
+    <div class="params">
+        <h3>Query Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Required</th>
+            </tr>
+            <tr>
+                <td><code>portfolio_return</code></td>
+                <td>Number</td>
+                <td>Expected portfolio return.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>risk_free_rate</code></td>
+                <td>Number</td>
+                <td>Risk-free interest rate.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>portfolio_std_dev</code></td>
+                <td>Number</td>
+                <td>Standard deviation of the portfolio.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>benchmark_return</code></td>
+                <td>Number</td>
+                <td>Return of the benchmark.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>beta</code></td>
+                <td>Number</td>
+                <td>Beta coefficient.</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example-request">
+        <h3>Example Request:</h3>
+        <p>Below is an example of a request URL with query parameters:</p>
+        <pre>GET /metrics/risk_analysis?portfolio_return=10&risk_free_rate=2&portfolio_std_dev=5&benchmark_return=8&beta=1.2</pre>
+    </div>
+
+    <div class="example-response">
+        <h3>Example Response:</h3>
+        <p>The response will return risk analysis metrics in JSON format:</p>
+        <pre>{
+    "risk_analysis_metric": value,
+    "message": "Risk analysis completed successfully."
+}</pre>
+    </div>
+
+    <div class="error-response">
+        <h3>Error Response:</h3>
+        <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+        <pre>{
+    "error": "Missing required parameters."
+}</pre>
+    </div>
+</div>
+
+
+
+</div>
+
+</body>
+</html>

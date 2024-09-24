@@ -1,13 +1,25 @@
 from flask import Blueprint, request, jsonify, render_template
 from services import *
+from metrics import FinancialDataHelper, FinancialMetrics, FinancialAnalysisHelper
 
-views = Blueprint(__name__, "views")
+
+views = Blueprint(__name__, "views", template_folder='templates', static_folder='static')
 
 
 @views.route('/')
 def home():
     return render_template("index.html")
 
+@views.route('/trends_documentation')
+def google_trends_documentation():
+    return render_template("googleTrends.html")
+
+@views.route('/metrics_documentation')
+def financial_metrics_documentation():
+    return render_template("financialMetrics.html")
+
+
+# POWERED BY GOOGLE TRENDS
 @views.route('/get_google_trends', methods=['GET'])
 def get_google_trends():
     """
@@ -197,3 +209,359 @@ def trend_seeker_api():
     result = trend_seeker(keyword, location, timeframe, top_n)
 
     return jsonify(result)
+
+
+
+# FINANCIAL METRICS SECTION
+# SECTION 01 - FinancialDataHelper
+@views.route('/metrics/calculate_average_total_assets', methods=['GET'])
+def calculate_average_total_assets():
+    data = request.get_json()
+    assets = data.get('assets', [])
+    average_assets = FinancialDataHelper.calculate_average_total_assets(assets)
+    return jsonify({'average_total_assets': average_assets})
+
+@views.route('/metrics/calculate_average_inventory', methods=['GET'])
+def calculate_average_inventory():
+    data = request.get_json()
+    inventory = data.get('inventory', [])
+    average_inventory = FinancialDataHelper.calculate_average_inventory(inventory)
+    return jsonify({'average_inventory': average_inventory})
+
+@views.route('/metrics/calculate_average_accounts_receivable', methods=['GET'])
+def calculate_average_accounts_receivable():
+    data = request.get_json()
+    accounts_receivable = data.get('accounts_receivable', [])
+    average_accounts_receivable = FinancialDataHelper.calculate_average_accounts_receivable(accounts_receivable)
+    return jsonify({'average_accounts_receivable': average_accounts_receivable})
+
+@views.route('/metrics/calculate_average_sales', methods=['GET'])
+def calculate_average_sales():
+    data = request.get_json()
+    sales = data.get('sales', [])
+    average_sales = FinancialDataHelper.calculate_average_sales(sales)
+    return jsonify({'average_sales': average_sales})
+
+@views.route('/metrics/calculate_cost_of_goods_sold', methods=['GET'])
+def calculate_cost_of_goods_sold():
+    data = request.get_json()
+    start_inventory = data.get('start_inventory', 0)
+    purchases = data.get('purchases', 0)
+    end_inventory = data.get('end_inventory', 0)
+    cogs = FinancialDataHelper.calculate_cost_of_goods_sold(start_inventory, purchases, end_inventory)
+    return jsonify({'cost_of_goods_sold': cogs})
+
+@views.route('/metrics/get_financial_ratios', methods=['GET'])
+def get_financial_ratios():
+    data = request.get_json()
+    total_assets = data.get('total_assets', 0)
+    total_debt = data.get('total_debt', 0)
+    total_equity = data.get('total_equity', 0)
+    financial_ratios = FinancialDataHelper.get_financial_ratios(total_assets, total_debt, total_equity)
+    return jsonify(financial_ratios)
+
+# SECTION 02 - FinancialMetrics
+@views.route('/metrics/total_revenue', methods=['GET'])
+def total_revenue():
+    sales = request.args.getlist('sales', type=float)
+    result = FinancialMetrics.total_revenue(sales)
+    return jsonify({'total_revenue': result})
+
+@views.route('/metrics/revenue_growth_rate', methods=['GET'])
+def revenue_growth_rate():
+    current_revenue = float(request.args.get('current_revenue'))
+    previous_revenue = float(request.args.get('previous_revenue'))
+    result = FinancialMetrics.revenue_growth_rate(current_revenue, previous_revenue)
+    return jsonify({'revenue_growth_rate': result})
+
+@views.route('/metrics/revenue_per_user', methods=['GET'])
+def revenue_per_user():
+    total_revenue = float(request.args.get('total_revenue'))
+    number_of_users = int(request.args.get('number_of_users'))
+    result = FinancialMetrics.revenue_per_user(total_revenue, number_of_users)
+    return jsonify({'revenue_per_user': result})
+
+@views.route('/metrics/gross_profit_margin', methods=['GET'])
+def gross_profit_margin():
+    gross_profit = float(request.args.get('gross_profit'))
+    total_revenue = float(request.args.get('total_revenue'))
+    result = FinancialMetrics.gross_profit_margin(gross_profit, total_revenue)
+    return jsonify({'gross_profit_margin': result})
+
+@views.route('/metrics/operating_profit_margin', methods=['GET'])
+def operating_profit_margin():
+    operating_income = float(request.args.get('operating_income'))
+    total_revenue = float(request.args.get('total_revenue'))
+    result = FinancialMetrics.operating_profit_margin(operating_income, total_revenue)
+    return jsonify({'operating_profit_margin': result})
+
+@views.route('/metrics/net_profit_margin', methods=['GET'])
+def net_profit_margin():
+    net_income = float(request.args.get('net_income'))
+    total_revenue = float(request.args.get('total_revenue'))
+    result = FinancialMetrics.net_profit_margin(net_income, total_revenue)
+    return jsonify({'net_profit_margin': result})
+
+@views.route('/metrics/return_on_assets', methods=['GET'])
+def return_on_assets():
+    net_income = float(request.args.get('net_income'))
+    total_assets = float(request.args.get('total_assets'))
+    result = FinancialMetrics.return_on_assets(net_income, total_assets)
+    return jsonify({'return_on_assets': result})
+
+@views.route('/metrics/return_on_equity', methods=['GET'])
+def return_on_equity():
+    net_income = float(request.args.get('net_income'))
+    shareholder_equity = float(request.args.get('shareholder_equity'))
+    result = FinancialMetrics.return_on_equity(net_income, shareholder_equity)
+    return jsonify({'return_on_equity': result})
+
+@views.route('/metrics/return_on_investment', methods=['GET'])
+def return_on_investment():
+    net_profit = float(request.args.get('net_profit'))
+    investment_cost = float(request.args.get('investment_cost'))
+    result = FinancialMetrics.return_on_investment(net_profit, investment_cost)
+    return jsonify({'return_on_investment': result})
+
+@views.route('/metrics/current_ratio', methods=['GET'])
+def current_ratio():
+    current_assets = float(request.args.get('current_assets'))
+    current_liabilities = float(request.args.get('current_liabilities'))
+    result = FinancialMetrics.current_ratio(current_assets, current_liabilities)
+    return jsonify({'current_ratio': result})
+
+@views.route('/metrics/quick_ratio', methods=['GET'])
+def quick_ratio():
+    current_assets = float(request.args.get('current_assets'))
+    inventories = request.args.getlist('inventories', type=float)
+    current_liabilities = float(request.args.get('current_liabilities'))
+    result = FinancialMetrics.quick_ratio(current_assets, inventories, current_liabilities)
+    return jsonify({'quick_ratio': result})
+
+@views.route('/metrics/cash_ratio', methods=['GET'])
+def cash_ratio():
+    cash_and_equivalents = float(request.args.get('cash_and_equivalents'))
+    current_liabilities = float(request.args.get('current_liabilities'))
+    result = FinancialMetrics.cash_ratio(cash_and_equivalents, current_liabilities)
+    return jsonify({'cash_ratio': result})
+
+@views.route('/metrics/asset_turnover_ratio', methods=['GET'])
+def asset_turnover_ratio():
+    total_revenue = float(request.args.get('total_revenue'))
+    average_total_assets = float(request.args.get('average_total_assets'))
+    result = FinancialMetrics.asset_turnover_ratio(total_revenue, average_total_assets)
+    return jsonify({'asset_turnover_ratio': result})
+
+@views.route('/metrics/inventory_turnover_ratio', methods=['GET'])
+def inventory_turnover_ratio():
+    cost_of_goods_sold = float(request.args.get('cost_of_goods_sold'))
+    average_inventory = float(request.args.get('average_inventory'))
+    result = FinancialMetrics.inventory_turnover_ratio(cost_of_goods_sold, average_inventory)
+    return jsonify({'inventory_turnover_ratio': result})
+
+@views.route('/metrics/receivables_turnover_ratio', methods=['GET'])
+def receivables_turnover_ratio():
+    net_credit_sales = float(request.args.get('net_credit_sales'))
+    average_accounts_receivable = float(request.args.get('average_accounts_receivable'))
+    result = FinancialMetrics.receivables_turnover_ratio(net_credit_sales, average_accounts_receivable)
+    return jsonify({'receivables_turnover_ratio': result})
+
+@views.route('/metrics/price_to_earnings', methods=['GET'])
+def price_to_earnings():
+    market_price_per_share = float(request.args.get('market_price_per_share'))
+    earnings_per_share = float(request.args.get('earnings_per_share'))
+    result = FinancialMetrics.price_to_earnings(market_price_per_share, earnings_per_share)
+    return jsonify({'price_to_earnings': result})
+
+@views.route('/metrics/price_to_sales', methods=['GET'])
+def price_to_sales():
+    market_capitalization = float(request.args.get('market_capitalization'))
+    total_revenue = float(request.args.get('total_revenue'))
+    result = FinancialMetrics.price_to_sales(market_capitalization, total_revenue)
+    return jsonify({'price_to_sales': result})
+
+@views.route('/metrics/enterprise_value', methods=['GET'])
+def enterprise_value():
+    market_capitalization = float(request.args.get('market_capitalization'))
+    total_debt = float(request.args.get('total_debt'))
+    cash_and_equivalents = float(request.args.get('cash_and_equivalents'))
+    result = FinancialMetrics.enterprise_value(market_capitalization, total_debt, cash_and_equivalents)
+    return jsonify({'enterprise_value': result})
+
+@views.route('/metrics/ev_to_ebitda', methods=['GET'])
+def ev_to_ebitda():
+    enterprise_value = float(request.args.get('enterprise_value'))
+    ebitda = float(request.args.get('ebitda'))
+    result = FinancialMetrics.ev_to_ebitda(enterprise_value, ebitda)
+    return jsonify({'ev_to_ebitda': result})
+
+@views.route('/metrics/earnings_per_share', methods=['GET'])
+def earnings_per_share():
+    net_income = float(request.args.get('net_income'))
+    number_of_outstanding_shares = int(request.args.get('number_of_outstanding_shares'))
+    result = FinancialMetrics.earnings_per_share(net_income, number_of_outstanding_shares)
+    return jsonify({'earnings_per_share': result})
+
+@views.route('/metrics/eps_growth_rate', methods=['GET'])
+def eps_growth_rate():
+    current_eps = float(request.args.get('current_eps'))
+    previous_eps = float(request.args.get('previous_eps'))
+    result = FinancialMetrics.eps_growth_rate(current_eps, previous_eps)
+    return jsonify({'eps_growth_rate': result})
+
+@views.route('/metrics/free_cash_flow', methods=['GET'])
+def free_cash_flow():
+    cash_from_operations = float(request.args.get('cash_from_operations'))
+    capital_expenditures = float(request.args.get('capital_expenditures'))
+    result = FinancialMetrics.free_cash_flow(cash_from_operations, capital_expenditures)
+    return jsonify({'free_cash_flow': result})
+
+@views.route('/metrics/debt_to_equity', methods=['GET'])
+def debt_to_equity():
+    total_debt = float(request.args.get('total_debt'))
+    total_equity = float(request.args.get('total_equity'))
+    result = FinancialMetrics.debt_to_equity(total_debt, total_equity)
+    return jsonify({'debt_to_equity': result})
+
+@views.route('/metrics/debt_ratio', methods=['GET'])
+def debt_ratio():
+    total_debt = float(request.args.get('total_debt'))
+    total_assets = float(request.args.get('total_assets'))
+    result = FinancialMetrics.debt_ratio(total_debt, total_assets)
+    return jsonify({'debt_ratio': result})
+
+@views.route('/metrics/interest_coverage_ratio', methods=['GET'])
+def interest_coverage_ratio():
+    ebit = float(request.args.get('ebit'))
+    interest_expense = float(request.args.get('interest_expense'))
+    result = FinancialMetrics.interest_coverage_ratio(ebit, interest_expense)
+    return jsonify({'interest_coverage_ratio': result})
+
+@views.route('/metrics/market_share', methods=['GET'])
+def market_share():
+    company_sales = float(request.args.get('company_sales'))
+    total_market_sales = float(request.args.get('total_market_sales'))
+    result = FinancialMetrics.market_share(company_sales, total_market_sales)
+    return jsonify({'market_share': result})
+
+@views.route('/metrics/relative_market_share', methods=['GET'])
+def relative_market_share():
+    company_market_share = float(request.args.get('company_market_share'))
+    competitor_market_share = float(request.args.get('competitor_market_share'))
+    result = FinancialMetrics.relative_market_share(company_market_share, competitor_market_share)
+    return jsonify({'relative_market_share': result})
+
+@views.route('/metrics/customer_acquisition_cost', methods=['GET'])
+def customer_acquisition_cost():
+    total_sales_and_marketing_expenses = float(request.args.get('total_sales_and_marketing_expenses'))
+    number_of_new_customers = int(request.args.get('number_of_new_customers'))
+    result = FinancialMetrics.customer_acquisition_cost(total_sales_and_marketing_expenses, number_of_new_customers)
+    return jsonify({'customer_acquisition_cost': result})
+
+@views.route('/metrics/customer_lifetime_value', methods=['GET'])
+def customer_lifetime_value():
+    average_purchase_value = float(request.args.get('average_purchase_value'))
+    purchase_frequency = float(request.args.get('purchase_frequency'))
+    customer_lifespan = float(request.args.get('customer_lifespan'))
+    result = FinancialMetrics.customer_lifetime_value(average_purchase_value, purchase_frequency, customer_lifespan)
+    return jsonify({'customer_lifetime_value': result})
+
+# SECTION 03 - FinancialAnalysisHelper
+@views.route('/metrics/financial_analysis', methods=['GET'])
+def financial_analysis():
+    assets = list(map(float, request.args.getlist('assets')))
+    inventory = list(map(float, request.args.getlist('inventory')))
+    accounts_receivable = list(map(float, request.args.getlist('accounts_receivable')))
+    sales = list(map(float, request.args.getlist('sales')))
+    
+    result = FinancialAnalysisHelper.financial_analysis(assets, inventory, accounts_receivable, sales)
+    return jsonify(result)
+
+@views.route('/metrics/valuation', methods=['GET'])
+def valuation():
+    market_price_per_share = float(request.args.get('market_price_per_share'))
+    earnings_per_share = float(request.args.get('earnings_per_share'))
+    market_capitalization = float(request.args.get('market_capitalization'))
+    total_revenue = float(request.args.get('total_revenue'))
+    total_debt = float(request.args.get('total_debt'))
+    cash_and_equivalents = float(request.args.get('cash_and_equivalents'))
+    ebitda = float(request.args.get('ebitda'))
+    number_of_outstanding_shares = int(request.args.get('number_of_outstanding_shares'))
+    
+    result = FinancialAnalysisHelper.valuation(market_price_per_share, earnings_per_share, market_capitalization, total_revenue, total_debt, cash_and_equivalents, ebitda, number_of_outstanding_shares)
+    return jsonify(result)
+
+@views.route('/metrics/performance_measurement', methods=['GET'])
+def performance_measurement():
+    net_income = float(request.args.get('net_income'))
+    total_assets = float(request.args.get('total_assets'))
+    total_equity = float(request.args.get('total_equity'))
+    shareholder_equity = float(request.args.get('shareholder_equity'))
+    investment_cost = float(request.args.get('investment_cost'))
+    current_assets = float(request.args.get('current_assets'))
+    current_liabilities = float(request.args.get('current_liabilities'))
+    inventory = list(map(float, request.args.getlist('inventory')))
+    
+    result = FinancialAnalysisHelper.performance_measurement(net_income, total_assets, total_equity, shareholder_equity, investment_cost, current_assets, current_liabilities, inventory)
+    return jsonify(result)
+
+@views.route('/metrics/risk_analysis', methods=['GET'])
+def risk_analysis():
+    portfolio_return = float(request.args.get('portfolio_return'))
+    risk_free_rate = float(request.args.get('risk_free_rate'))
+    portfolio_std_dev = float(request.args.get('portfolio_std_dev'))
+    benchmark_return = float(request.args.get('benchmark_return'))
+    beta = float(request.args.get('beta'))
+    
+    result = FinancialAnalysisHelper.risk_analysis(portfolio_return, risk_free_rate, portfolio_std_dev, benchmark_return, beta)
+    return jsonify(result)
+
+@views.route('/metrics/market_share_analysis', methods=['GET'])
+def market_share_analysis():
+    company_sales = float(request.args.get('company_sales'))
+    total_market_sales = float(request.args.get('total_market_sales'))
+    competitor_market_share = float(request.args.get('competitor_market_share'))
+    
+    result = FinancialAnalysisHelper.market_share_analysis(company_sales, total_market_sales, competitor_market_share)
+    return jsonify(result)
+
+@views.route('/metrics/business_health_analysis', methods=['GET'])
+def business_health_analysis():
+    assets = list(map(float, request.args.getlist('assets')))
+    inventory = list(map(float, request.args.getlist('inventory')))
+    accounts_receivable = list(map(float, request.args.getlist('accounts_receivable')))
+    sales = list(map(float, request.args.getlist('sales')))
+    market_price_per_share = float(request.args.get('market_price_per_share'))
+    earnings_per_share = float(request.args.get('earnings_per_share'))
+    market_capitalization = float(request.args.get('market_capitalization'))
+    total_revenue = float(request.args.get('total_revenue'))
+    total_debt = float(request.args.get('total_debt'))
+    cash_and_equivalents = float(request.args.get('cash_and_equivalents'))
+    ebitda = float(request.args.get('ebitda'))
+    number_of_outstanding_shares = int(request.args.get('number_of_outstanding_shares'))
+    net_income = float(request.args.get('net_income'))
+    total_assets = float(request.args.get('total_assets'))
+    total_equity = float(request.args.get('total_equity'))
+    shareholder_equity = float(request.args.get('shareholder_equity'))
+    investment_cost = float(request.args.get('investment_cost'))
+    current_assets = float(request.args.get('current_assets'))
+    current_liabilities = float(request.args.get('current_liabilities'))
+    competitor_market_share = float(request.args.get('competitor_market_share'))
+    portfolio_return = float(request.args.get('portfolio_return'))
+    risk_free_rate = float(request.args.get('risk_free_rate'))
+    portfolio_std_dev = float(request.args.get('portfolio_std_dev'))
+    benchmark_return = float(request.args.get('benchmark_return'))
+    beta = float(request.args.get('beta'))
+
+    result = FinancialAnalysisHelper.business_health_analysis(
+        assets, inventory, accounts_receivable, sales, 
+        market_price_per_share, earnings_per_share, 
+        market_capitalization, total_revenue, total_debt, 
+        cash_and_equivalents, ebitda, number_of_outstanding_shares, 
+        net_income, total_assets, total_equity, shareholder_equity, 
+        investment_cost, current_assets, current_liabilities, 
+        competitor_market_share, portfolio_return, risk_free_rate, 
+        portfolio_std_dev, benchmark_return, beta)
+    
+    return jsonify(result)
+

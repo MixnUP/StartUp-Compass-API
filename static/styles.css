@@ -1,0 +1,296 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #4a90e2;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* Responsive Container */
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* API Section Styles */
+.api-section {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.api-section:hover {
+    transform: translateY(-10px);
+}
+
+.api-section h2 {
+    margin-top: 0;
+    color: #4a90e2;
+}
+
+/* Params, Response, Example Response, and Error Response Styles */
+.params, .response, .example-response, .error-response {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 4px solid #4a90e2;
+    margin: 15px 0;
+}
+
+.params table, .response table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.params table th, .params table td, 
+.response table th, .response table td {
+    text-align: left;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.params table th {
+    background-color: #eaeaea;
+}
+
+.example-response pre, .error-response pre {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    overflow: auto;
+}
+
+.example-response pre, .error-response pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.example-request {
+    background-color: #e9f5ff;
+    border: 1px dashed #4a90e2;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 15px 0;
+}
+
+/* Navbar Styles */
+nav {
+    background-color: #333;
+    padding: 10px 0;
+    position: fixed; /* Fix the navbar to the top */
+    top: 0;
+    left: 0; /* Added to ensure it stays at the left */
+    width: 100%; /* Full width */
+    z-index: 10; /* Ensure navbar stays on top */
+    display: flex; /* Use flexbox for better spacing */
+    justify-content: space-between; /* Distribute space evenly */
+    align-items: center; /* Align items vertically */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: flex-end; /* Align options to the right */
+}
+
+nav ul li {
+    margin: 0 15px; /* Adjust spacing between items */
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px; /* Add rounded corners */
+    transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+nav ul li a:hover {
+    background-color: #4a90e2; /* Change background on hover */
+}
+
+nav h1 { /* Style for the header on the left */
+    color: #fff;
+    font-size: 1.5em;
+    margin: 0;
+    padding-left: 20px; /* Add some left padding */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 200px;
+    padding: 20px;
+    background-color: #fff; /* Updated to a lighter color for contrast */
+    position: fixed; /* Fixed position */
+    top: 60px; /* Below the navbar */
+    left: 0; /* Align to the left */
+    height: calc(100vh - 60px); /* Full height minus navbar height */
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.sidebar h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #4a90e2; /* Consistent color with other headings */
+}
+
+.sidebar a {
+    display: block;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #333;
+    padding: 10px; /* Added padding for clickable area */
+    border-radius: 4px; /* Rounded corners for links */
+    transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.sidebar a:hover {
+    background-color: #e9f5ff; /* Light background on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Adjust navbar and sidebar for smaller screens */
+    .sidebar {
+        width: 100%;
+        position: relative; /* Change to relative positioning */
+        height: auto; /* Auto height */
+        box-shadow: none; /* Remove shadow for a cleaner look */
+    }
+
+    nav {
+        width: 100%; /* Full width */
+        padding: 10px; /* Maintain padding */
+    }
+
+    .container {
+        margin-left: 0; /* No margin for sidebar */
+    }
+}
+
+/* Other Styles for Container, Notices, etc. */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.container h1 {
+    margin-top: 0;
+    font-size: 2em;
+    color: #4a90e2;
+}
+
+.container p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+/* Additional Styling for Clarity and Readability */
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+pre {
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+}
+
+.notice {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 15px;
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.notice strong {
+    font-weight: bold;
+}
+
+.highlighted-section {
+    background-color: #e0f7fa; /* Light cyan background for highlighting */
+    border-left: 4px solid #00796b; /* Darker teal left border for emphasis */
+    padding: 20px;
+    margin: 20px 0; /* Space between sections */
+    border-radius: 8px; /* Rounded corners for a softer look */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.highlighted-section h2 {
+    color: #00796b; /* Darker color for section titles */
+}
+
+.highlighted-section p {
+    font-size: 1.1em; /* Slightly larger text for better readability */
+}
+
+/* Specific adjustments for individual sections, if needed */
+.section-01 {
+    background-color: #ffe0b2;
+}
+
+.section-02 {
+    background-color: #e1bee7;
+}
+
+.section-03 {
+    background-color: #72ffb9;
+}

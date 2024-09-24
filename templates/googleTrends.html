@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Trends Integration</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<header>
+    <nav>
+        <h1>StartUp Compass API Documentation</h1>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/trends_documentation">Trends</a></li>
+            <li><a href="/metrics_documentation">Metrics</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- Section for get_google_trends API -->
+    <div class="api-section">
+        <h2>GET /get_google_trends</h2>
+        <p>Fetch Google Trends data, interpret it, and return the requested section (e.g., trend summary, spike events, breakpoints, recommendations).</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends (e.g., <code>today 12-m</code> for 1 year).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+                <tr>
+                    <td><code>request_type</code></td>
+                    <td>String</td>
+                    <td>Type of data requested (e.g., <code>trend_summary</code>, <code>spike_events</code>, <code>breakpoints</code>, <code>recommendations</code>).</td>
+                    <td><code>trend_summary</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <pre>{
+    "Upward": 30,
+    "Downward": 12
+}</pre>
+        </div>
+    </div>
+
+    <!-- Section for get_current_month_interest API -->
+    <div class="api-section">
+        <h2>GET /get_current_month_interest</h2>
+        <p>Retrieve the interest score for the current month based on Google Trends data for a specific niche.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends (e.g., <code>today 12-m</code>).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <pre>{
+    "latest_interest_score": 82,
+    "average_interest_score": 75.3,
+    "month": 9,
+    "year": 2024
+}</pre>
+        </div>
+    </div>
+
+    <!-- Section for compile_all API -->
+    <div class="api-section">
+        <h2>GET /compile_all</h2>
+        <p>Compile all sections of the Google Trends report into a single JSON response.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends (e.g., <code>today 12-m</code>).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <pre>{
+    "trend_summary": { "Upward": 30, "Downward": 12 },
+    "spike_events": { "2024-09-01": { "Interest Score": 95 } },
+    "breakpoints": [{ "breakpoint_index": 100 }],
+    "recommendations": ["Consider expanding product offerings."]
+}</pre>
+        </div>
+    </div>
+
+    <!-- Section for calculate_roi API -->
+    <div class="api-section">
+        <h2>GET /calculate_roi</h2>
+        <p>Calculate the estimated Return on Investment (ROI) based on Google Trends forecast for a specific niche.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends (e.g., <code>today 12-m</code>).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+                <tr>
+                    <td><code>investment_amount</code></td>
+                    <td>Float</td>
+                    <td>The amount of money being invested.</td>
+                    <td><code>1000</code></td>
+                </tr>
+                <tr>
+                    <td><code>forecast_period</code></td>
+                    <td>Integer</td>
+                    <td>Number of days into the future to forecast.</td>
+                    <td><code>90</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <pre>{
+        "niche": "iced coffee",
+        "investment_amount": "$1000",
+        "forecast_period_days": "90 days",
+        "initial_interest_score": 45.7,
+        "forecasted_interest_score": 50.2,
+        "estimated_roi": "1100.45%",
+        "interest_growth": "9.81%",
+        "growth_trend": "upward",
+        "recommendation": "Based on the trend, the interest in 'iced coffee' is expected to grow. Your estimated ROI for a $1000 investment over 90 days is 1100.45%. NOTE: This calculation is based on the percentage growth of the interest score over a period of time."
+    }</pre>
+        </div>
+    </div>
+
+
+    <!-- Section for get-bar-graph-data API -->
+    <div class="api-section">
+        <h2>GET /get-bar-graph-data</h2>
+        <p>Retrieve data for creating a bar graph showing interest scores over time for a specific niche based on Google Trends data.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for Google Trends.</td>
+                    <td><code>iced coffee</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The location for the trends data (e.g., US, PH).</td>
+                    <td><code>US</code></td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>Time range for trends data (e.g., <code>today 12-m</code>).</td>
+                    <td><code>today 12-m</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <p>The response will return the data in JSON format, suitable for creating a bar graph. The labels represent the dates (X-axis), and the values represent the interest scores (Y-axis).</p>
+            <pre>{
+        "labels": [
+            "2023-09-01",
+            "2023-09-02",
+            "2023-09-03",
+            "... (more dates)"
+        ],
+        "values": [
+            67, 
+            73, 
+            82, 
+            "... (more scores)"
+        ]
+    }</pre>
+        </div>
+
+        <div class="error-response">
+            <h3>Error Response:</h3>
+            <p>If the API cannot find data for the given niche, it will return an error message:</p>
+            <pre>{
+        "error": "No data found for the given niche."
+    }</pre>
+        </div>
+
+
+    <!-- Section for business-assessment -->
+    <div class="api-section">
+        <h2>GET /business-assessment</h2>
+        <p>Submit business metrics as query parameters to receive tailored insights and recommendations based on your current financial performance, including growth rate, profit margin, and industry benchmarks.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+                <tr>
+                    <td><code>current_revenue</code></td>
+                    <td>Number</td>
+                    <td>The total revenue for the current period (e.g., year, quarter).</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>previous_revenue</code></td>
+                    <td>Number</td>
+                    <td>The total revenue for the previous period, used for growth rate calculation.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>total_expenses</code></td>
+                    <td>Number</td>
+                    <td>The total expenses incurred during the current period.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>customer_base</code></td>
+                    <td>Number</td>
+                    <td>The total number of customers for the current period.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>months</code></td>
+                    <td>Number</td>
+                    <td>The number of months over which to calculate average revenue (default is 12).</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><code>industry</code></td>
+                    <td>String</td>
+                    <td>The industry for which to fetch benchmarks (e.g., 'Retail', 'Tech').</td>
+                    <td>Yes</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-request">
+            <h3>Example Request:</h3>
+            <p>Below is an example of a request URL with query parameters:</p>
+            <pre>
+    GET /business-assessment?current_revenue=120000&previous_revenue=100000&total_expenses=80000&customer_base=300&months=12&industry=Retail
+            </pre>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <p>The response will return insights along with financial metrics in JSON format:</p>
+            <pre>{
+        "insights": [
+            "A low growth rate indicates potential stagnation. Explore new market segments or diversify your product offerings.",
+            "The average revenue per month is $10000.00.",
+            "Your revenue is relatively low. Consider implementing aggressive marketing strategies to attract new customers."
+        ],
+        "growth_rate": 20.0,
+        "profit_margin": 33.33,
+        "average_revenue_per_month": 10000.00,
+        "message": "Business assessment completed successfully."
+    }</pre>
+        </div>
+
+        <div class="error-response">
+            <h3>Error Response:</h3>
+            <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+            <pre>{
+        "error": "Missing required parameters."
+    }</pre>
+        </div>
+    </div>
+
+
+    <!-- Section for interest-by-region -->
+    <div class="api-section">
+        <h2>GET /interest_by_region</h2>
+        <p>Retrieve Google Trends data for a specified niche, broken down by region, to visualize interest levels using a pie chart.</p>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for which to fetch Google Trends data.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>The time range for the trends data (default is 'today 12-m').</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The geographical area for the trends data (default is 'US').</td>
+                    <td>No</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-request">
+            <h3>Example Request:</h3>
+            <p>Below is an example of a request URL with query parameters:</p>
+            <pre>
+    GET /interest_by_region?niche=coffee&timeframe=today%2012-m&location=US
+            </pre>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <p>The response will return interest data broken down by region in JSON format:</p>
+            <pre>{
+            {
+                "labels": [
+                    "Autonomous Region in Muslim Mindanao",
+                    "Bicol",
+                    "Cagayan Valley",
+                    "Calabarzon",
+                    "Caraga",
+                    "Central Luzon",
+                    "Central Visayas",
+                    "Cordillera Administrative Region",
+                    "Davao Region",
+                    "Eastern Visayas",
+                    "Ilocos Region",
+                    "MIMAROPA",
+                    "Metro Manila",
+                    "Northern Mindanao",
+                    "Region XII",
+                    "Western Visayas",
+                    "Zamboanga Peninsula"
+                ],
+                "values": [
+                    83,
+                    62,
+                    55,
+                    77,
+                    66,
+                    72,
+                    63,
+                    64,
+                    69,
+                    60,
+                    90,
+                    63,
+                    100,
+                    66,
+                    67,
+                    67,
+                    72
+                ]
+            }
+    }</pre>
+        </div>
+
+        <div class="error-response">
+            <h3>Error Response:</h3>
+            <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+            <pre>{
+        "error": "Niche parameter is required."
+    }</pre>
+        </div>
+    </div>
+
+    <!-- Section for trend seeker -->
+    <div class="api-section">
+        <h2>GET /trend_seeker</h2>
+        <p>Retrieve the top keyword suggestions based on a specified keyword along with their current month interest data.</p>
+
+        <div class="notice" style="background-color: #fff3cd; color: #856404; padding: 15px; border: 1px solid #ffeeba; border-radius: 5px; margin-bottom: 20px;">
+            <strong>Notice:</strong> Please be aware that loading may take some time, especially for popular keywords.
+        </div>
+
+        <div class="params">
+            <h3>Query Parameters:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+                <tr>
+                    <td><code>niche</code></td>
+                    <td>String</td>
+                    <td>The search term for which to fetch keyword suggestions.</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><code>timeframe</code></td>
+                    <td>String</td>
+                    <td>The time range for trends data (default is 'today 12-m').</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>String</td>
+                    <td>The geographical area for the trends data (default is 'US').</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><code>top_n</code></td>
+                    <td>Integer</td>
+                    <td>The number of top suggestions to return (default is 5).</td>
+                    <td>No</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="example-request">
+            <h3>Example Request:</h3>
+            <p>Below is an example of a request URL with query parameters:</p>
+            <pre>
+    GET /trend_seeker?niche=coffee&timeframe=today%2012-m&location=US&top_n=5
+            </pre>
+        </div>
+
+        <div class="example-response">
+            <h3>Example Response:</h3>
+            <p>The response will return the top suggestions along with their interest data in JSON format:</p>
+            <pre>{
+        "original_keyword": "coffee",
+        "top_suggestions": [
+            {
+                "keyword": "iced coffee",
+                "niche_data": {
+                    "latest_interest_score": 75,
+                    "average_interest_score": 65,
+                    "month": 9,
+                    "year": 2024
+                }
+            },
+            {
+                "keyword": "coffee beans",
+                "niche_data": {
+                    "latest_interest_score": 82,
+                    "average_interest_score": 70,
+                    "month": 9,
+                    "year": 2024
+                }
+            }
+            // ... additional suggestions ...
+        ]
+    }</pre>
+        </div>
+
+        <div class="error-response">
+            <h3>Error Response:</h3>
+            <p>If the request is missing required parameters or if any values are invalid, the API will return an error message:</p>
+            <pre>{
+        "error": "Niche parameter is required."
+    }</pre>
+        </div>
+    </div>
+
+
+        
+</div>
+
+
+</div>
+
+</body>
+</html>
