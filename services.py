@@ -402,7 +402,6 @@ def fetch_industry_benchmarks(industry):
     # Return default values in case of an error
     return 5, 15
 
-
 def generate_business_insights(current_revenue, previous_revenue, total_expenses, customer_base, months, low_growth_rate_threshold, low_profit_margin_threshold):
     # Input validation
     if current_revenue < 0 or previous_revenue < 0 or total_expenses < 0 or customer_base < 0 or months <= 0:
@@ -418,12 +417,6 @@ def generate_business_insights(current_revenue, previous_revenue, total_expenses
     medium_profit_margin_threshold = low_profit_margin_threshold + 10  # Adding a buffer for medium threshold
 
     suggestions = []
-
-    # Revenue Analysis
-    if current_revenue < 50000:
-        suggestions.append("Your revenue is relatively low. Consider implementing aggressive marketing strategies to attract new customers.")
-    elif current_revenue > high_revenue_threshold:
-        suggestions.append("With a high revenue, ensure you are investing in sustainable growth and exploring expansion opportunities.")
 
     # Profit Margin Analysis
     if profit_margin < low_profit_margin_threshold:
