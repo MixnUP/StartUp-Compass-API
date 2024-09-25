@@ -216,49 +216,47 @@ def trend_seeker_api():
 # SECTION 01 - FinancialDataHelper
 @views.route('/metrics/calculate_average_total_assets', methods=['GET'])
 def calculate_average_total_assets():
-    data = request.get_json()
-    assets = data.get('assets', [])
+    assets = request.args.getlist('assets', type=float)  # Get assets from query parameters
     average_assets = FinancialDataHelper.calculate_average_total_assets(assets)
     return jsonify({'average_total_assets': average_assets})
 
 @views.route('/metrics/calculate_average_inventory', methods=['GET'])
 def calculate_average_inventory():
-    data = request.get_json()
-    inventory = data.get('inventory', [])
+    inventory = request.args.getlist('inventory', type=float)  # Get inventory from query parameters
     average_inventory = FinancialDataHelper.calculate_average_inventory(inventory)
     return jsonify({'average_inventory': average_inventory})
 
 @views.route('/metrics/calculate_average_accounts_receivable', methods=['GET'])
 def calculate_average_accounts_receivable():
-    data = request.get_json()
-    accounts_receivable = data.get('accounts_receivable', [])
+    accounts_receivable = request.args.getlist('accounts_receivable', type=float)  # Get accounts receivable from query parameters
     average_accounts_receivable = FinancialDataHelper.calculate_average_accounts_receivable(accounts_receivable)
     return jsonify({'average_accounts_receivable': average_accounts_receivable})
 
 @views.route('/metrics/calculate_average_sales', methods=['GET'])
 def calculate_average_sales():
-    data = request.get_json()
-    sales = data.get('sales', [])
+    sales = request.args.getlist('sales', type=float)  # Get sales from query parameters
     average_sales = FinancialDataHelper.calculate_average_sales(sales)
     return jsonify({'average_sales': average_sales})
 
 @views.route('/metrics/calculate_cost_of_goods_sold', methods=['GET'])
 def calculate_cost_of_goods_sold():
-    data = request.get_json()
-    start_inventory = data.get('start_inventory', 0)
-    purchases = data.get('purchases', 0)
-    end_inventory = data.get('end_inventory', 0)
+    start_inventory = float(request.args.get('start_inventory', 0))
+    purchases = float(request.args.get('purchases', 0))
+    end_inventory = float(request.args.get('end_inventory', 0))
     cogs = FinancialDataHelper.calculate_cost_of_goods_sold(start_inventory, purchases, end_inventory)
     return jsonify({'cost_of_goods_sold': cogs})
 
 @views.route('/metrics/get_financial_ratios', methods=['GET'])
 def get_financial_ratios():
-    data = request.get_json()
-    total_assets = data.get('total_assets', 0)
-    total_debt = data.get('total_debt', 0)
-    total_equity = data.get('total_equity', 0)
+    total_assets = float(request.args.get('total_assets', 0))
+    total_debt = float(request.args.get('total_debt', 0))
+    total_equity = float(request.args.get('total_equity', 0))
     financial_ratios = FinancialDataHelper.get_financial_ratios(total_assets, total_debt, total_equity)
     return jsonify(financial_ratios)
+
+
+
+
 
 # SECTION 02 - FinancialMetrics
 @views.route('/metrics/total_revenue', methods=['GET'])
@@ -465,6 +463,10 @@ def customer_lifetime_value():
     customer_lifespan = float(request.args.get('customer_lifespan'))
     result = FinancialMetrics.customer_lifetime_value(average_purchase_value, purchase_frequency, customer_lifespan)
     return jsonify({'customer_lifetime_value': result})
+
+
+
+
 
 # SECTION 03 - FinancialAnalysisHelper
 @views.route('/metrics/financial_analysis', methods=['GET'])
