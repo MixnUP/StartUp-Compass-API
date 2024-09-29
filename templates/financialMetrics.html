@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,17 +29,6 @@
     
     <!-- Sidebar Button -->
     <button class="sidebar-button">Show Sidebar</button>
-    
-    <!-- JavaScript to toggle sidebar -->
-    <script>
-        const sidebarButton = document.querySelector('.sidebar-button');
-        const sidebar = document.querySelector('.sidebar');
-    
-        sidebarButton.addEventListener('click', () => {
-            sidebarButton.classList.toggle('active');
-            sidebar.classList.toggle('active');
-        });
-    </script>
 
 <div class="container">
 
@@ -1600,6 +1590,6 @@ GET /metrics/customer_lifetime_value?average_purchase_value=100&purchase_frequen
 
 
 </div>
-
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
