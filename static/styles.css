@@ -297,7 +297,7 @@ nav ul li a:hover {
 }
 
 /* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 768px) { 
     .container {
         margin-left: 0; /* Remove margin for sidebar */
     }
@@ -330,8 +330,34 @@ nav ul li a:hover {
         display: block; /* Show sidebar on smaller screens */
     }
 
-    .sidebar-toggle {
-        display: block; /* Show toggle button on smaller screens */
+    /* Additionally, adjust sidebar content for smaller screens */
+    .sidebar h2 {
+        font-size: 1.3em; /* Reduce heading size */
+    }
+
+    .sidebar a {
+        font-size: 0.9em; /* Reduce link text size */
+        padding: 8px; /* Reduce link padding */
+    }
+
+    /* Adjust navbar for smaller screens */
+    nav {
+        flex-direction: column; /* Stack navbar items vertically */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    nav h1 {
+        font-size: 1.2em; /* Reduce heading size */
+        margin-bottom: 10px; /* Add spacing between heading and menu */
+    }
+
+    nav ul {
+        flex-direction: column; /* Stack menu items vertically */
+        justify-content: flex-start; /* Align items to the top */
+    }
+
+    nav ul li {
+        margin-bottom: 10px; /* Add spacing between menu items */
     }
 }
 
