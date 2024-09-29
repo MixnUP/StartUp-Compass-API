@@ -2,19 +2,34 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: all 0.3s ease-in-out; /* Add smooth transitions to all elements */
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f4;
     color: #333;
+    line-height: 1.6;
 }
 
+/* Header Styles */
 header {
     background-color: #4a90e2;
     color: #fff;
-    padding: 15px 0;
+    padding: 20px 0;
     text-align: center;
+    animation: headerAnimation 1s ease-in-out; /* Add animation to header */
+}
+
+@keyframes headerAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 header h1 {
@@ -22,11 +37,84 @@ header h1 {
     font-size: 2.5em;
 }
 
+/* Navbar Styles */
+nav {
+    background-color: #333;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h1 { 
+    color: #fff;
+    font-size: 1.5em;
+    margin: 0;
+    padding-left: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #4a90e2;
+}
+
 /* Responsive Container */
 .container {
+    max-width: 95%; /* Adjust max-width for responsiveness */
+    margin: 20px auto; /* Center the container */
     padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    animation: containerAnimation 1s ease-in-out; /* Add animation to container */
+}
+
+@keyframes containerAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container h1 {
+    margin-top: 0;
+    font-size: 2em;
+    color: #4a90e2;
+}
+
+.container p {
+    font-size: 1.2em;
+    line-height: 1.6;
 }
 
 /* API Section Styles */
@@ -37,6 +125,18 @@ header h1 {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    animation: apiSectionAnimation 1s ease-in-out; /* Add animation to API sections */
+}
+
+@keyframes apiSectionAnimation {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .api-section:hover {
@@ -49,7 +149,10 @@ header h1 {
 }
 
 /* Params, Response, Example Response, and Error Response Styles */
-.params, .response, .example-response, .error-response {
+.params, 
+.response, 
+.example-response, 
+.error-response {
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 4px;
@@ -57,13 +160,16 @@ header h1 {
     margin: 15px 0;
 }
 
-.params table, .response table {
+.params table, 
+.response table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.params table th, .params table td, 
-.response table th, .response table td {
+.params table th, 
+.params table td, 
+.response table th, 
+.response table td {
     text-align: left;
     padding: 12px;
     border: 1px solid #ddd;
@@ -73,15 +179,14 @@ header h1 {
     background-color: #eaeaea;
 }
 
-.example-response pre, .error-response pre {
+.example-response pre, 
+.error-response pre {
     background-color: #333;
     color: #fff;
     padding: 10px;
     border-radius: 4px;
     overflow: auto;
-}
-
-.example-response pre, .error-response pre {
+    font-family: monospace;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
@@ -94,69 +199,26 @@ header h1 {
     margin: 15px 0;
 }
 
-/* Navbar Styles */
-nav {
-    background-color: #333;
-    padding: 10px 0;
-    position: fixed; /* Fix the navbar to the top */
-    top: 0;
-    left: 0; /* Added to ensure it stays at the left */
-    width: 100%; /* Full width */
-    z-index: 10; /* Ensure navbar stays on top */
-    display: flex; /* Use flexbox for better spacing */
-    justify-content: space-between; /* Distribute space evenly */
-    align-items: center; /* Align items vertically */
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex; /* Use flexbox for horizontal alignment */
-    justify-content: flex-end; /* Align options to the right */
-}
-
-nav ul li {
-    margin: 0 15px; /* Adjust spacing between items */
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px 15px;
-    border-radius: 5px; /* Add rounded corners */
-    transition: background-color 0.3s; /* Smooth hover effect */
-}
-
-nav ul li a:hover {
-    background-color: #4a90e2; /* Change background on hover */
-}
-
-nav h1 { /* Style for the header on the left */
-    color: #fff;
-    font-size: 1.5em;
-    margin: 0;
-    padding-left: 20px; /* Add some left padding */
-}
-
-/* Sidebar Styles */
+/* Sidebar Styles (Widget Look) */
 .sidebar {
-    width: 200px;
+    width: 250px; /* Adjust width as needed */
     padding: 20px;
-    background-color: #fff; /* Updated to a lighter color for contrast */
-    position: fixed; /* Fixed position */
-    top: 60px; /* Below the navbar */
-    left: 0; /* Align to the left */
-    height: calc(100vh - 60px); /* Full height minus navbar height */
+    background-color: #fff;
+    position: fixed;
+    top: 60px;
+    left: -250px; /* Initially off-screen */
+    height: calc(100vh - 60px);
     overflow-y: auto;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 8px; /* Add rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: left 0.3s ease-in-out; /* Smooth transition */
 }
 
 .sidebar h2 {
     margin-bottom: 15px;
     font-size: 1.5em;
-    color: #4a90e2; /* Consistent color with other headings */
+    color: #4a90e2;
+    margin-top: 0; /* Remove default margin */
 }
 
 .sidebar a {
@@ -164,55 +226,113 @@ nav h1 { /* Style for the header on the left */
     margin: 10px 0;
     text-decoration: none;
     color: #333;
-    padding: 10px; /* Added padding for clickable area */
-    border-radius: 4px; /* Rounded corners for links */
-    transition: background-color 0.3s; /* Smooth hover effect */
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    border: 1px solid #ddd; /* Add subtle border */
 }
 
 .sidebar a:hover {
-    background-color: #e9f5ff; /* Light background on hover */
+    background-color: #e9f5ff;
+    border-color: #4a90e2; /* Change border color on hover */
 }
 
-/* Responsive adjustments */
+.sidebar-button {
+    position: fixed;
+    top: 60px; /* Position below navbar */
+    left: 20px;
+    z-index: 10;
+    background-color: #09858a;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, left 0.3s ease-in-out; /* Add left transition */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    opacity: 0.5; /* Make the button slightly transparent */
+    animation: buttonAnimation 1s ease-in-out; /* Add animation to the button */
+}
+
+@keyframes buttonAnimation {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.sidebar-button:hover {
+    background-color: #333;
+    opacity: 1; /* Full opacity on hover */
+}
+
+.sidebar-button:active {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); /* More prominent shadow on click */
+}
+
+.sidebar-button.active {
+    background-color: #333; /* Change button color when sidebar is open */
+    left: 220px; /* Move button to the right edge of the sidebar */
+}
+
+.sidebar.active {
+    left: 20px; /* Move sidebar into view */
+}
+
+/* Toggle Button for Sidebar */
+.sidebar-toggle {
+    display: none; /* Hide by default */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 100;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
-    /* Adjust navbar and sidebar for smaller screens */
+    .container {
+        margin-left: 0; /* Remove margin for sidebar */
+    }
+
+    header h1 {
+        font-size: 1.8em; /* Adjust header size for smaller screens */
+    }
+
+    .container h1 {
+        font-size: 1.5em; /* Adjust container heading size */
+    }
+
+    .api-section h2 {
+        font-size: 1.3em; /* Adjust section heading size */
+    }
+
+    .params table th, 
+    .params table td, 
+    .response table th, 
+    .response table td {
+        padding: 8px; /* Reduce padding for smaller screens */
+    }
+
     .sidebar {
         width: 100%;
-        position: relative; /* Change to relative positioning */
-        height: auto; /* Auto height */
-        box-shadow: none; /* Remove shadow for a cleaner look */
+        position: relative;
+        height: auto;
+        box-shadow: none;
+        left: 0; /* No left margin on smaller screens */
+        display: block; /* Show sidebar on smaller screens */
     }
 
-    nav {
-        width: 100%; /* Full width */
-        padding: 10px; /* Maintain padding */
+    .sidebar-toggle {
+        display: block; /* Show toggle button on smaller screens */
     }
-
-    .container {
-        margin-left: 0; /* No margin for sidebar */
-    }
-}
-
-/* Other Styles for Container, Notices, etc. */
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
-
-.container h1 {
-    margin-top: 0;
-    font-size: 2em;
-    color: #4a90e2;
-}
-
-.container p {
-    font-size: 1.2em;
-    line-height: 1.6;
 }
 
 /* Additional Styling for Clarity and Readability */
@@ -266,20 +386,20 @@ pre {
 }
 
 .highlighted-section {
-    background-color: #e0f7fa; /* Light cyan background for highlighting */
-    border-left: 4px solid #00796b; /* Darker teal left border for emphasis */
+    background-color: #e0f7fa;
+    border-left: 4px solid #00796b;
     padding: 20px;
-    margin: 20px 0; /* Space between sections */
-    border-radius: 8px; /* Rounded corners for a softer look */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .highlighted-section h2 {
-    color: #00796b; /* Darker color for section titles */
+    color: #00796b;
 }
 
 .highlighted-section p {
-    font-size: 1.1em; /* Slightly larger text for better readability */
+    font-size: 1.1em;
 }
 
 /* Specific adjustments for individual sections, if needed */

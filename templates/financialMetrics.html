@@ -7,24 +7,38 @@
 </head>
 <body>
 
-<header>
-    <nav>
-        <h1>StartUp Compass API Documentation</h1>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/trends_documentation">Trends</a></li>
-            <li><a href="/metrics_documentation">Metrics</a></li>
-        </ul>
-    </nav>
-</header>
-
-<!-- Sidebar Navigation -->
-<div class="sidebar">
-    <h2>API Endpoints</h2>
-    <a href="#SECTION_01">SECTION 01 - FinancialDataHelper</a>
-    <a href="#SECTION_02">SECTION 02 - FinancialMetrics</a>
-    <a href="#SECTION_03">SECTION 03 - FinancialAnalysisHelper</a>
-</div>
+    <header>
+        <nav>
+            <h1>StartUp Compass API Documentation</h1>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/trends_documentation">Trends</a></li>
+                <li><a href="/metrics_documentation">Metrics</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>API Endpoints</h2>
+        <a href="#SECTION_01">SECTION 01 - FinancialDataHelper</a>
+        <a href="#SECTION_02">SECTION 02 - FinancialMetrics</a>
+        <a href="#SECTION_03">SECTION 03 - FinancialAnalysisHelper</a>
+    </div>
+    
+    <!-- Sidebar Button -->
+    <button class="sidebar-button">Show Sidebar</button>
+    
+    <!-- JavaScript to toggle sidebar -->
+    <script>
+        const sidebarButton = document.querySelector('.sidebar-button');
+        const sidebar = document.querySelector('.sidebar');
+    
+        sidebarButton.addEventListener('click', () => {
+            sidebarButton.classList.toggle('active');
+            sidebar.classList.toggle('active');
+        });
+    </script>
 
 <div class="container">
 
