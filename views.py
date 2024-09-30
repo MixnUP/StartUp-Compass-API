@@ -417,7 +417,7 @@ def free_cash_flow():
 @views.route('/metrics/debt_to_equity', methods=['GET'])
 def debt_to_equity():
     total_debt = float(request.args.get('total_debt'))
-    total_equity = float(request.args.get('total_equity'))
+    total_equity = float(request.args.get('total_shareholder_equity'))
     result = FinancialMetrics.debt_to_equity(total_debt, total_equity)
     return jsonify({'debt_to_equity': result})
 
