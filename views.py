@@ -467,7 +467,6 @@ def customer_lifetime_value():
 
 
 
-
 # SECTION 03 - FinancialAnalysisHelper
 @views.route('/metrics/financial_analysis', methods=['GET'])
 def financial_analysis():
@@ -527,34 +526,45 @@ def market_share_analysis():
     result = FinancialAnalysisHelper.market_share_analysis(company_sales, total_market_sales, competitor_market_share)
     return jsonify(result)
 
-@views.route('/metrics/business_health_analysis', methods=['GET'])
+@views.route('/metrics/business_health_analysis', methods=['POST'])
 def business_health_analysis():
-    assets = list(map(float, request.args.getlist('assets')))
-    inventory = list(map(float, request.args.getlist('inventory')))
-    accounts_receivable = list(map(float, request.args.getlist('accounts_receivable')))
-    sales = list(map(float, request.args.getlist('sales')))
-    market_price_per_share = float(request.args.get('market_price_per_share'))
-    earnings_per_share = float(request.args.get('earnings_per_share'))
-    market_capitalization = float(request.args.get('market_capitalization'))
-    total_revenue = float(request.args.get('total_revenue'))
-    total_debt = float(request.args.get('total_debt'))
-    cash_and_equivalents = float(request.args.get('cash_and_equivalents'))
-    ebitda = float(request.args.get('ebitda'))
-    number_of_outstanding_shares = int(request.args.get('number_of_outstanding_shares'))
-    net_income = float(request.args.get('net_income'))
-    total_assets = float(request.args.get('total_assets'))
-    total_equity = float(request.args.get('total_equity'))
-    shareholder_equity = float(request.args.get('shareholder_equity'))
-    investment_cost = float(request.args.get('investment_cost'))
-    current_assets = float(request.args.get('current_assets'))
-    current_liabilities = float(request.args.get('current_liabilities'))
-    competitor_market_share = float(request.args.get('competitor_market_share'))
-    portfolio_return = float(request.args.get('portfolio_return'))
-    risk_free_rate = float(request.args.get('risk_free_rate'))
-    portfolio_std_dev = float(request.args.get('portfolio_std_dev'))
-    benchmark_return = float(request.args.get('benchmark_return'))
-    beta = float(request.args.get('beta'))
+    data = request.get_json()
 
+    # Extract financial parameters from the JSON payload
+    financials = data.get('financials', {})
+    assets = financials.get('assets', [])
+    inventory = financials.get('inventory', [])
+    accounts_receivable = financials.get('accounts_receivable', [])
+    sales = financials.get('sales', [])
+    market_price_per_share = financials.get('market_price_per_share', 0)
+    earnings_per_share = financials.get('earnings_per_share', 0)
+    market_capitalization = financials.get('market_capitalization', 0)
+    total_revenue = financials.get('total_revenue', 0)
+    total_debt = financials.get('total_debt', 0)
+    cash_and_equivalents = financials.get('cash_and_equivalents', 0)
+    ebitda = financials.get('ebitda', 0)
+    number_of_outstanding_shares = financials.get('number_of_outstanding_shares', 0)
+    net_income = financials.get('net_income', 0)
+    total_assets = financials.get('total_assets', 0)
+    total_equity = financials.get('total_equity', 0)
+    shareholder_equity = financials.get('shareholder_equity', 0)
+    current_assets = financials.get('current_assets', 0)
+    current_liabilities = financials.get('current_liabilities', 0)
+
+    # Extract market analysis parameters
+    market_analysis = data.get('market_analysis', {})
+    investment_cost = market_analysis.get('investment_cost', 0)
+    competitor_market_share = market_analysis.get('competitor_market_share', 0)
+
+    # Extract portfolio data
+    portfolio = data.get('portfolio', {})
+    portfolio_return = portfolio.get('portfolio_return', 0)
+    risk_free_rate = portfolio.get('risk_free_rate', 0)
+    portfolio_std_dev = portfolio.get('portfolio_std_dev', 0)
+    benchmark_return = portfolio.get('benchmark_return', 0)
+    beta = portfolio.get('beta', 0)
+
+    # Call the helper function
     result = FinancialAnalysisHelper.business_health_analysis(
         assets, inventory, accounts_receivable, sales, 
         market_price_per_share, earnings_per_share, 
@@ -563,7 +573,8 @@ def business_health_analysis():
         net_income, total_assets, total_equity, shareholder_equity, 
         investment_cost, current_assets, current_liabilities, 
         competitor_market_share, portfolio_return, risk_free_rate, 
-        portfolio_std_dev, benchmark_return, beta)
+        portfolio_std_dev, benchmark_return, beta
+    )
     
     return jsonify(result)
 

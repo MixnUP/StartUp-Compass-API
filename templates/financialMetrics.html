@@ -1767,65 +1767,119 @@ GET /metrics/market_share_analysis?company_sales=100000&total_market_sales=50000
     </div>
 </div>
 
+
 <!-- Business Health Analysis -->
 <div class="api-section">
-    <h2>GET /metrics/business_health_analysis</h2>
-    <p>This endpoint analyzes the overall health of a business based on various financial metrics.</p>
+    <h2>POST /metrics/business_health_analysis</h2>
+    <p>This endpoint analyzes the overall health of a business based on various financial and market metrics. The data is submitted as a JSON payload.</p>
 
     <div class="params">
-        <h3>Query Parameters:</h3>
+        <h3>JSON Payload:</h3>
         <table>
             <tr>
-                <th>Parameter</th>
+                <th>Field</th>
                 <th>Type</th>
                 <th>Description</th>
                 <th>Required</th>
             </tr>
             <tr>
-                <td><code>assets</code></td>
+                <td><code>financials</code></td>
+                <td>Object</td>
+                <td>Contains financial metrics such as assets, inventory, sales, etc.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>financials.assets</code></td>
                 <td>List of Numbers</td>
                 <td>The company's list of assets.</td>
                 <td>Yes</td>
             </tr>
             <tr>
-                <td><code>inventory</code></td>
+                <td><code>financials.inventory</code></td>
                 <td>List of Numbers</td>
                 <td>The company's inventory values.</td>
                 <td>Yes</td>
             </tr>
             <tr>
-                <td><code>accounts_receivable</code></td>
+                <td><code>financials.accounts_receivable</code></td>
                 <td>List of Numbers</td>
                 <td>The company's accounts receivable.</td>
                 <td>Yes</td>
             </tr>
             <tr>
-                <td><code>sales</code></td>
+                <td><code>financials.sales</code></td>
                 <td>List of Numbers</td>
                 <td>The company's sales figures.</td>
                 <td>Yes</td>
             </tr>
             <tr>
-                <td><code>market_price_per_share</code></td>
+                <td><code>financials.market_price_per_share</code></td>
                 <td>Number</td>
                 <td>The company's current market price per share.</td>
                 <td>Yes</td>
             </tr>
             <tr>
-                <td><code>earnings_per_share</code></td>
+                <td><code>financials.earnings_per_share</code></td>
                 <td>Number</td>
                 <td>The company's earnings per share (EPS).</td>
                 <td>Yes</td>
             </tr>
-            <!-- Continue listing all other required parameters similarly -->
+            <!-- Continue listing all other required fields similarly -->
+            <tr>
+                <td><code>market_analysis</code></td>
+                <td>Object</td>
+                <td>Contains market analysis data such as investment cost, competitor market share, etc.</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>portfolio</code></td>
+                <td>Object</td>
+                <td>Contains portfolio metrics such as portfolio return, risk-free rate, etc.</td>
+                <td>Yes</td>
+            </tr>
         </table>
     </div>
 
     <div class="example-request">
         <h3>Example Request:</h3>
-        <p>Below is an example of a request URL with query parameters:</p>
+        <p>Below is an example of a POST request with a JSON payload:</p>
         <pre>
-GET /metrics/business_health_analysis?assets=100000&inventory=50000&accounts_receivable=30000&sales=150000&market_price_per_share=20&earnings_per_share=2&market_capitalization=500000&total_revenue=250000&total_debt=100000&cash_and_equivalents=50000&ebitda=120000&number_of_outstanding_shares=10000&net_income=70000&total_assets=600000&total_equity=400000&shareholder_equity=350000&investment_cost=100000&current_assets=200000&current_liabilities=80000&competitor_market_share=15&portfolio_return=10&risk_free_rate=3&portfolio_std_dev=12&benchmark_return=8&beta=1.1
+            POST /metrics/business_health_analysis
+            Content-Type: application/json
+
+            {
+            "financials": {
+                "assets": [100000],
+                "inventory": [50000],
+                "accounts_receivable": [30000],
+                "sales": [150000],
+                "market_price_per_share": 20,
+                "earnings_per_share": 2,
+                "market_capitalization": 500000,
+                "total_revenue": 250000,
+                "total_debt": 100000,
+                "cash_and_equivalents": 50000,
+                "ebitda": 120000,
+                "number_of_outstanding_shares": 10000,
+                "net_income": 70000,
+                "total_assets": 600000,
+                "total_equity": 400000,
+                "shareholder_equity": 350000,
+                "current_assets": 200000,
+                "current_liabilities": 80000
+            },
+            "market_analysis": {
+                "investment_cost": 100000,
+                "competitor_market_share": 15
+            },
+            "portfolio": {
+                "portfolio_return": 10,
+                "risk_free_rate": 3,
+                "portfolio_std_dev": 12,
+                "benchmark_return": 8,
+                "beta": 1.1
+            }
+            }
         </pre>
     </div>
 
@@ -1862,7 +1916,7 @@ GET /metrics/business_health_analysis?assets=100000&inventory=50000&accounts_rec
             "valuation": {
                 "EV_to_EBITDA": 4.583333333333333,
                 "earnings_per_share": 25.0,
-                "enterprise_value": 550000.0,
+                "enterprise_value": 550000,
                 "price_to_earnings_ratio": 10.0,
                 "price_to_sales_ratio": 2.0
             }
@@ -1871,14 +1925,12 @@ GET /metrics/business_health_analysis?assets=100000&inventory=50000&accounts_rec
 
     <div class="error-response">
         <h3>Error Response:</h3>
-        <p>If the request is missing required parameters, the API will return an error message:</p>
+        <p>If the request is missing required fields, the API will return an error message:</p>
         <pre>{
-    "error": "Missing required parameters."
+    "error": "Missing required fields."
 }</pre>
     </div>
 </div>
-
-
 
 
 
