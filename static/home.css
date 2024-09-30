@@ -1,0 +1,112 @@
+/* API Documentation Specific Styles */
+.api-docs {
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif; /* Adding a clean font for readability */
+}
+
+.api-docs-header {
+    background-color: #007BFF;
+    padding: 20px; /* Increased padding for better spacing */
+    text-align: center; /* Center align the header content */
+}
+
+.api-docs-title {
+    font-size: 2.5em; /* Adjusted size for better visibility */
+    color: white;
+    margin: 0; /* Remove default margin */
+    animation: fadeIn 1s; /* Animation for header */
+}
+
+.api-docs-nav {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0; /* Remove default padding */
+}
+
+.api-docs-container {
+    max-width: 800px;
+    margin: 40px auto; /* Increased margin for spacing */
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s; /* Animation for container */
+}
+
+/* Added fadeIn animation for body content */
+.api-docs-content {
+    opacity: 0; /* Start with opacity 0 for fade-in */
+    animation: fadeIn 1s forwards; /* Apply fadeIn animation */
+}
+
+.api-docs-main-title {
+    color: #007BFF;
+    margin-bottom: 20px; /* Space below the main title */
+}
+
+.api-docs-intro,
+.api-docs-description {
+    font-size: 1.1em;
+    margin: 10px 0; /* Vertical spacing for paragraphs */
+}
+
+.api-docs-section-title {
+    margin-top: 30px; /* Space above section titles */
+    color: #007BFF;
+    font-size: 1.5em; /* Increased font size for section titles */
+    border-bottom: 2px solid #e0e0e0; /* Underline for emphasis */
+    padding-bottom: 5px; /* Space below the title */
+}
+
+.api-docs-list,
+.api-docs-steps {
+    margin: 15px 0; /* Space between lists and steps */
+    padding-left: 20px; /* Indent for lists */
+}
+
+.get-started-link {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px; /* Adjusted padding for the button */
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s; /* Added transition for animations */
+}
+
+.get-started-link:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .api-docs-title {
+        font-size: 2em; /* Smaller font size on mobile */
+    }
+    
+    .api-docs-container {
+        margin: 20px; /* Reduced margins for smaller screens */
+        padding: 15px; /* Reduced padding for smaller screens */
+    }
+    
+    .api-docs-main-title {
+        font-size: 1.8em; /* Smaller font size for main title on mobile */
+    }
+    
+    .api-docs-section-title {
+        font-size: 1.3em; /* Smaller font size for section titles on mobile */
+    }
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px); /* Optional: Adds a slight upward movement */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Final position */
+    }
+}

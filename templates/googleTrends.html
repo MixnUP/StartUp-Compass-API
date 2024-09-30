@@ -23,7 +23,7 @@
 
     <!-- Section for get_google_trends API -->
     <div class="api-section">
-        <h2>GET /get_google_trends</h2>
+        <h2>GET /trends/get_google_trends</h2>
         <p>Fetch Google Trends data, interpret it, and return the requested section (e.g., trend summary, spike events, breakpoints, recommendations).</p>
 
         <div class="params">
@@ -73,7 +73,7 @@
 
     <!-- Section for get_current_month_interest API -->
     <div class="api-section">
-        <h2>GET /get_current_month_interest</h2>
+        <h2>GET /trends/get_current_month_interest</h2>
         <p>Retrieve the interest score for the current month based on Google Trends data for a specific niche.</p>
 
         <div class="params">
@@ -119,7 +119,7 @@
 
     <!-- Section for compile_all API -->
     <div class="api-section">
-        <h2>GET /compile_all</h2>
+        <h2>GET /trends/compile_all</h2>
         <p>Compile all sections of the Google Trends report into a single JSON response.</p>
 
         <div class="params">
@@ -165,7 +165,7 @@
 
     <!-- Section for calculate_roi API -->
     <div class="api-section">
-        <h2>GET /calculate_roi</h2>
+        <h2>GET /trends/calculate_roi</h2>
         <p>Calculate the estimated Return on Investment (ROI) based on Google Trends forecast for a specific niche.</p>
 
         <div class="params">
@@ -229,7 +229,7 @@
 
     <!-- Section for get-bar-graph-data API -->
     <div class="api-section">
-        <h2>GET /get-bar-graph-data</h2>
+        <h2>GET /trends/get-bar-graph-data</h2>
         <p>Retrieve data for creating a bar graph showing interest scores over time for a specific niche based on Google Trends data.</p>
 
         <div class="params">
@@ -292,7 +292,7 @@
 
     <!-- Section for business-assessment -->
     <div class="api-section">
-        <h2>GET /business-assessment</h2>
+        <h2>GET /trends/business-assessment</h2>
         <p>Submit business metrics as query parameters to receive tailored insights and recommendations based on your current financial performance, including growth rate, profit margin, and industry benchmarks.</p>
 
         <div class="params">
@@ -347,7 +347,7 @@
             <h3>Example Request:</h3>
             <p>Below is an example of a request URL with query parameters:</p>
             <pre>
-    GET /business-assessment?current_revenue=120000&previous_revenue=100000&total_expenses=80000&customer_base=300&months=12&industry=Retail
+    GET /trends/business-assessment?current_revenue=120000&previous_revenue=100000&total_expenses=80000&customer_base=300&months=12&industry=Retail
             </pre>
         </div>
 
@@ -379,7 +379,7 @@
 
     <!-- Section for interest-by-region -->
     <div class="api-section">
-        <h2>GET /interest_by_region</h2>
+        <h2>GET /trends/interest_by_region</h2>
         <p>Retrieve Google Trends data for a specified niche, broken down by region, to visualize interest levels using a pie chart.</p>
 
         <div class="params">
@@ -416,7 +416,7 @@
             <h3>Example Request:</h3>
             <p>Below is an example of a request URL with query parameters:</p>
             <pre>
-    GET /interest_by_region?niche=coffee&timeframe=today%2012-m&location=US
+    GET /trends/interest_by_region?niche=coffee&timeframe=today%2012-m&location=US
             </pre>
         </div>
 
@@ -478,7 +478,7 @@
 
     <!-- Section for trend seeker -->
     <div class="api-section">
-        <h2>GET /trend_seeker</h2>
+        <h2>GET /trends/trend_seeker</h2>
         <p>Retrieve the top keyword suggestions based on a specified keyword along with their current month interest data.</p>
 
         <div class="notice" style="background-color: #fff3cd; color: #856404; padding: 15px; border: 1px solid #ffeeba; border-radius: 5px; margin-bottom: 20px;">
@@ -525,7 +525,7 @@
             <h3>Example Request:</h3>
             <p>Below is an example of a request URL with query parameters:</p>
             <pre>
-    GET /trend_seeker?niche=coffee&timeframe=today%2012-m&location=US&top_n=5
+    GET /trends/trend_seeker?niche=coffee&timeframe=today%2012-m&location=US&top_n=5
             </pre>
         </div>
 

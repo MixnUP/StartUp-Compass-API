@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Documentation - Google Trends Flask API</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
+<body class="api-docs">
 
 <header>
     <nav>
@@ -19,11 +20,34 @@
     </nav>
 </header>
 
-<div class="container">
-    <h1>Welcome to the StartUp Compass Flask API Documentation!</h1>
-    <p>We’re excited to have you here! This documentation serves as your comprehensive guide to the StartUp Compass Flask API. Whether you’re a developer looking to integrate our API into your applications or a business owner seeking insights, you’ll find everything you need to get started.</p>
-    <p>Explore the various endpoints, learn about the functionalities we offer, and discover how our API can help you analyze financial metrics, assess business performance, and make informed decisions. Additionally, be sure to check out our documentation on Google Trend functions, which provides valuable insights into market trends and consumer interests.</p>
-    <p>Use the links in the navbar to navigate through our documentation and unlock the full potential of the StartUp Compass API. If you have any questions or need assistance, feel free to reach out. Happy exploring!</p>
+<div>
+    <div class="api-docs-container">
+        <h1 class="api-docs-main-title">StartUp Compass Flask API Documentation</h1>
+        <p class="api-docs-intro">This documentation provides an overview of the StartUp Compass Flask API, designed to assist developers and business owners in leveraging our API for data analysis and decision-making.</p>
+        
+        <h2 class="api-docs-section-title">Overview of the API</h2>
+        <p class="api-docs-description">The StartUp Compass API offers endpoints for:</p>
+        <ul class="api-docs-list">
+            <li>Analyzing financial metrics</li>
+            <li>Assessing business performance</li>
+            <li>Retrieving insights from Google Trends</li>
+        </ul>
+        <p class="api-docs-description">These functionalities allow users to track market trends and consumer interests effectively.</p>
+        
+        <h2 class="api-docs-section-title">Getting Started with the API</h2>
+        <p class="api-docs-description">To begin using the StartUp Compass API, follow these steps:</p>
+        <ol class="api-docs-steps">
+            <li><strong>Choose an Endpoint:</strong> Review the available API endpoints listed to determine which one suits your needs.</li>
+            <li><strong>Set Up Your Request:</strong> Create an HTTP request (GET) to the desired endpoint, including any required parameters.</li>
+            <li><strong>Send the Request:</strong> Use tools like Postman, cURL, or your preferred programming language to send the request to the API.</li>
+            <li><strong>Handle the Response:</strong> Analyze the JSON response returned by the API, which will include the data or any error messages.</li>
+        </ol>
+
+        <p class="api-docs-cta">Ready to dive in? <a href="/trends_documentation" class="get-started-link">Get Started</a></p>
+
+        <h2 class="api-docs-section-title">Contact and Support</h2>
+        <p class="api-docs-description">If you have questions or require further assistance, please reach out via the contact form on our website. We are committed to providing the support you need for successful integration with our API.</p>
+    </div>
 </div>
 
 </body>

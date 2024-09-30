@@ -20,7 +20,7 @@ def financial_metrics_documentation():
 
 
 # POWERED BY GOOGLE TRENDS
-@views.route('/get_google_trends', methods=['GET'])
+@views.route('/trends/get_google_trends', methods=['GET'])
 def get_google_trends():
     """
     Flask API endpoint to fetch Google Trends data, interpret the data, and serve requested sections.
@@ -50,7 +50,7 @@ def get_google_trends():
 
     return response_json
 
-@views.route('/get_current_month_interest', methods=['GET'])
+@views.route('/trends/get_current_month_interest', methods=['GET'])
 def get_current_month_interest_api():
     """
     Flask API endpoint to get the interest score for the current month.
@@ -76,7 +76,7 @@ def get_current_month_interest_api():
 
     return jsonify(current_month_interest)
 
-@views.route('/compile_all', methods=['GET'])
+@views.route('/trends/compile_all', methods=['GET'])
 def compile_all_json_api():
     """
     Flask API endpoint to compile all sections of the report into one JSON response.
@@ -104,7 +104,7 @@ def compile_all_json_api():
 
     return all_data_json
 
-@views.route('/get-bar-graph-data', methods=['GET'])
+@views.route('/trends/get-bar-graph-data', methods=['GET'])
 def get_bar_graph_data_api():
     niche = request.args.get('niche', 'iced coffee')  # Default to 'iced coffee' if no niche is provided
     timeframe = request.args.get('timeframe', 'today 12-m')
@@ -119,7 +119,7 @@ def get_bar_graph_data_api():
     else:
         return json.dumps({"error": "No data found for the given niche."}, indent=4)
 
-@views.route('/calculate_roi', methods=['GET'])
+@views.route('/trends/calculate_roi', methods=['GET'])
 def calculate_roi_api():
     """
     Flask API endpoint to calculate ROI based on Google Trends forecast.
@@ -149,7 +149,7 @@ def calculate_roi_api():
 
     return jsonify(roi_data)
 
-@views.route('/business-assessment', methods=['GET'])
+@views.route('/trends/business-assessment', methods=['GET'])
 def business_assessment():
     current_revenue = request.args.get('current_revenue', type=float)
     previous_revenue = request.args.get('previous_revenue', type=float)
@@ -179,7 +179,7 @@ def business_assessment():
         'message': 'Business assessment completed successfully.'
     })
     
-@views.route('/interest_by_region', methods=['GET'])
+@views.route('/trends/interest_by_region', methods=['GET'])
 def interest_by_region():
     """
     API endpoint to get Google Trends interest by region for a specific niche.
@@ -197,7 +197,7 @@ def interest_by_region():
     # Return the response as JSON
     return jsonify(json.loads(pie_chart_data))  
 
-@views.route('/trend_seeker', methods=['GET'])
+@views.route('/trends/trend_seeker', methods=['GET'])
 def trend_seeker_api():
     # Get parameters from the request
     keyword = request.args.get('niche', default='iced coffee', type=str)
