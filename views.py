@@ -204,10 +204,7 @@ def business_assessment():
     )
     
     return jsonify({
-        'insights': insights['suggestions'],
-        'growth_rate': insights['growth_rate'],
-        'profit_margin': insights['profit_margin'],
-        'average_revenue_per_month': insights['average_revenue_per_month'],
+        'insights': insights,
         'message': 'Business assessment completed successfully.'
     })
     
