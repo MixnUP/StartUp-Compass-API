@@ -1,10 +1,42 @@
 from flask import Blueprint, request, jsonify, render_template
 from services import *
 from metrics import FinancialDataHelper, FinancialMetrics, FinancialAnalysisHelper
-
+from base_01 import comprehensive_trend_analysis
 
 views = Blueprint(__name__, "views", template_folder='templates', static_folder='static')
 
+
+@views.route('/comprehensive-trend-analysis', methods=['POST'])
+def get_comprehensive_trend_analysis():
+    """
+    Endpoint for comprehensive trend analysis.
+    
+    Expected JSON payload:
+    {
+        "industry": str,
+        "business_scale": str,
+        "location": str
+    }
+    """
+    try:
+        # Get JSON data from request
+        data = request.get_json()
+        
+        # Validate input
+        if not data or not all(key in data for key in ['industry', 'business_scale', 'location']):
+            return jsonify({
+                'error': 'Invalid input. Must provide "industry", "business_scale", and "location".'
+            }), 400
+        
+        # Call comprehensive trend analysis function
+        result = comprehensive_trend_analysis(api_data=data)
+        
+        return jsonify(result), 200
+    
+    except Exception as e:
+        return jsonify({
+            'error': f'An error occurred: {str(e)}'
+        }), 500
 
 @views.route('/')
 def home():
