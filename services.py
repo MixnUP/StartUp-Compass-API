@@ -44,7 +44,7 @@ def get_current_month_interest(df, niche):
         'year': current_year
     }
 
-def get_google_trends_data(niche, timeframe='today 12-m', location='US'):
+def get_google_trends_data(niche, timeframe='today 12-m', location='US', pytrends_obj=None):
     """
     Fetch Google Trends data for a niche with adjustable timeframe and location.
     
@@ -52,21 +52,38 @@ def get_google_trends_data(niche, timeframe='today 12-m', location='US'):
     - niche (str): Search term for Google Trends.
     - timeframe (str): Time range for trends (default is 1 year).
     - location (str): Location (geo) for the trends data.
+    - pytrends_obj (TrendReq, optional): Existing PyTrends connection object.
     
     Returns:
     - pd.DataFrame: Google Trends data for the niche.
     """
-    pytrends = TrendReq(hl='en-US', tz=360)
-    pytrends.build_payload([niche], timeframe=timeframe, geo=location, gprop='')
-    trending_data = pytrends.interest_over_time()
+    # Use the provided pytrends_obj if available, otherwise create a new connection
+    if pytrends_obj is None:
+        pytrends = TrendReq(
+            hl='en-US',      # Language
+            tz=360,          # Timezone offset
+            timeout=(10, 25),# Connection and read timeouts
+            proxies=None,    # No proxy by default
+            retries=3,       # Number of retries
+            backoff_factor=0.3  # Exponential backoff factor
+        )
+    else:
+        pytrends = pytrends_obj
 
-    # Check if data exists
-    if trending_data.empty:
-        print("No data found for the given niche.")
+    try:
+        pytrends.build_payload([niche], timeframe=timeframe, geo=location, gprop='')
+        trending_data = pytrends.interest_over_time()
+
+        # Check if data exists
+        if trending_data.empty:
+            print(f"No data found for the niche: {niche}")
+            return None
+
+        trending_data = trending_data.drop(columns=['isPartial'], errors='ignore')  # Remove 'isPartial' if present
+        return trending_data
+    except Exception as e:
+        print(f"Error retrieving trends for {niche}: {e}")
         return None
-
-    trending_data = trending_data.drop(columns=['isPartial'], errors='ignore')  # Remove 'isPartial' if present
-    return trending_data
 
 def generate_recommendations(df, report, niche):
     """
@@ -412,51 +429,14 @@ def generate_business_insights(current_revenue, previous_revenue, total_expenses
     profit_margin = calculate_profit_margin(current_revenue, total_expenses)
     average_revenue_per_month = calculate_average_revenue(current_revenue, months)
 
-    # Define thresholds based on fetched benchmarks
-    high_revenue_threshold = current_revenue * 2  # Example: double the current revenue
-    medium_profit_margin_threshold = low_profit_margin_threshold + 10  # Adding a buffer for medium threshold
-
-    suggestions = []
-
-    # Profit Margin Analysis
-    if profit_margin < low_profit_margin_threshold:
-        suggestions.append("Your profit margin is below industry standards. Focus on optimizing your supply chain and reducing operational costs.")
-    elif profit_margin < medium_profit_margin_threshold:
-        suggestions.append("A moderate profit margin suggests potential. Evaluate your pricing strategy and consider adding value-added services.")
-    else:
-        suggestions.append("Excellent profit margin! Consider reinvesting in innovation or enhancing customer experience to maintain this advantage.")
-
-    # Growth Rate Analysis
-    if calculated_growth_rate < 5:
-        suggestions.append("A low growth rate indicates potential stagnation. Explore new market segments or diversify your product offerings.")
-    elif calculated_growth_rate < low_growth_rate_threshold:
-        suggestions.append("Your growth rate is healthy. Keep an eye on market trends and be ready to adapt to changes.")
-    else:
-        suggestions.append("Impressive growth! Consider scalability strategies to sustain this momentum.")
-
-    # Average Revenue Analysis
-    suggestions.append(f"The average revenue per month is ${average_revenue_per_month:.2f}.")
-
-    # Customer Base Analysis
-    if customer_base < 100:
-        suggestions.append("A small customer base may limit your market impact. Focus on customer retention and word-of-mouth referrals.")
-    elif customer_base < 500:
-        suggestions.append("A growing customer base is encouraging. Consider loyalty programs to enhance customer retention.")
-    else:
-        suggestions.append("With a substantial customer base, explore opportunities for upselling and cross-selling products.")
-
-    # General Recommendations
-    suggestions.extend([
-        "Regularly review your financial metrics to identify areas for improvement.",
-        "Engage with your customers to gather feedback and adapt your offerings based on their needs.",
-        "Consider leveraging data analytics to better understand market trends and customer behavior."
-    ])
-
     return {
-        "suggestions": suggestions,
         "growth_rate": calculated_growth_rate,
         "profit_margin": profit_margin,
-        "average_revenue_per_month": average_revenue_per_month
+        "average_revenue_per_month": average_revenue_per_month,
+        "current_revenue": current_revenue,
+        "previous_revenue": previous_revenue,
+        "total_expenses": total_expenses,
+        "customer_base": customer_base
     }
 
 
